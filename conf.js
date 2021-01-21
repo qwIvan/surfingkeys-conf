@@ -20,6 +20,7 @@ util.addSettings({
         animation: 0s ease-in-out 1 forwards collapseRichHints;
     }
   `,
+  language: "zh-CN",
 })
 
 if (typeof Hints !== "undefined") {
@@ -40,3 +41,33 @@ util.processMaps(keys.maps, keys.aliases, siteleader)
 util.processCompletions(completions, searchleader)
 
 module.exports = { siteleader, searchleader }
+
+Front.registerInlineQuery({
+  url(q) {
+    return `http://dict.youdao.com/w/eng/${q}/#keyfrom=dict2.index`
+  },
+  parseResult(res) {
+    const parser = new DOMParser()
+    const doc = parser.parseFromString(res.text, "text/html")
+    const collinsResult = doc.querySelector("#collinsResult")
+    const authTransToggle = doc.querySelector("#authTransToggle")
+    const examplesToggle = doc.querySelector("#examplesToggle")
+    if (collinsResult) {
+      collinsResult.querySelectorAll("div>span.collinsOrder").forEach((span) => {
+        span.nextElementSibling.prepend(span)
+      })
+      collinsResult.querySelectorAll("div.examples").forEach((div) => {
+        // eslint-disable-next-line no-param-reassign
+        div.innerHTML = div.innerHTML.replace(/<p/gi, "<span").replace(/<\/p>/gi, "</span>")
+      })
+      const exp = collinsResult.innerHTML
+      return exp
+    } if (authTransToggle) {
+      authTransToggle.querySelector("div.via.ar").remove()
+      return authTransToggle.innerHTML
+    } if (examplesToggle) {
+      return examplesToggle.innerHTML
+    }
+    return ""
+  },
+})
