@@ -415,3 +415,7 @@ input {
   font-weight: var(--font-weight);
 }
 `
+
+// https://github.com/brookhong/Surfingkeys/pull/1504
+settings.nextLinkRegex = /(\b(next)\b)|下页|下一页|后页|下頁|下一頁|後頁|>>|»/i
+settings.prevLinkRegex = /(\b(prev|previous)\b)|上页|上一页|前页|上頁|上一頁|前頁|<<|«/i
