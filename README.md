@@ -1,37 +1,25 @@
-<!--
+<!-- NOTICE: This file is auto-generated. Do not edit directly. -->
 
-NOTICE:
-This is an automatically generated file - Do not edit it directly.
-The source file is README.tmpl.md
-
--->
-
-Maddy's SurfingKeys Configuration
-=================================
+# Maddison's SurfingKeys Configuration
 
 This is my configuration for the [SurfingKeys](https://github.com/brookhong/Surfingkeys) browser extension.
 
-Its primary features include
-- 139 [Site-Specific Key Mappings](#site-specific-key-mappings) which **automate common actions** on many popular websites
-- 55 [Search Suggestion Engines](#search-suggestion-engines) providing **interactive search suggestions** from dozens of knowledge sources
+It includes:
 
-Table of Contents
------------------
+- [187 key mappings for 27 unique websites](#site-specific-key-mappings) which **automate many common actions**.
+- [Omnibar integration with 56 Search Engines and Knowledge Sources](#omnibar-search-engine-integrations), many of which include **inline images** and **instant answers**.
+
+## Table of Contents
 
 1. [Site-Specific Key Mappings](#site-specific-key-mappings)
-2. [Search Suggestion Engines](#search-suggestion-engines)
+2. [Omnibar Search Engine Integrations](#omnibar-search-engine-integrations)
 3. [Installation Instructions](#installation)
 4. [Screenshots](#screenshots)
-5. [Todo](#todo)
-6. [License](#license)
+5. [License](#license)
 
-Features
---------
+## Features
 
 ### Site-Specific Key Mappings
-
-139 key mappings for 22 unique
-sites have been included which can help you perform some common actions:
 
 <table>
 <tbody>
@@ -46,6 +34,7 @@ sites have been included which can help you perform some common actions:
 <tr><td><code>gi</code></td><td>Edit current URL with vim editor</td></tr>
 <tr><td><code>gi</code></td><td>Edit current URL with vim editor</td></tr>
 <tr><td><code>gI</code></td><td>View image in new tab</td></tr>
+<tr><td><code>g.</code></td><td>Go to parent domain</td></tr>
 <tr><td><code>yp</code></td><td>Copy URL path of current page</td></tr>
 <tr><td><code>yI</code></td><td>Copy Image URL</td></tr>
 <tr><td><code>yO</code></td><td>Copy page URL/Title as Org-mode link</td></tr>
@@ -53,18 +42,23 @@ sites have been included which can help you perform some common actions:
 <tr><td><code>yT</code></td><td>Duplicate current tab (non-active new tab)</td></tr>
 <tr><td><code>;se</code></td><td>Edit Settings</td></tr>
 <tr><td><code>gS</code></td><td>Open Chrome settings</td></tr>
-<tr><td><code>&#x3D;w</code></td><td>Lookup whois information for domain</td></tr>
+<tr><td><code>&#x3D;W</code></td><td>Lookup whois information for domain</td></tr>
 <tr><td><code>&#x3D;d</code></td><td>Lookup dns information for domain</td></tr>
 <tr><td><code>&#x3D;D</code></td><td>Lookup all information for domain</td></tr>
 <tr><td><code>&#x3D;c</code></td><td>Show Google's cached version of page</td></tr>
 <tr><td><code>&#x3D;a</code></td><td>Show Archive.org Wayback Machine for page</td></tr>
+<tr><td><code>&#x3D;A</code></td><td>Show Alexa.com info for domain</td></tr>
+<tr><td><code>&#x3D;s</code></td><td>View social discussions for page</td></tr>
 <tr><td><code>&#x3D;o</code></td><td>Show outline.com version of page</td></tr>
-<tr><td><code>&#x3D;r</code></td><td>Subscribe to RSS feed for page</td></tr>
-<tr><td><code>&#x3D;s</code></td><td>Speed read page</td></tr>
+<tr><td><code>&#x3D;bw</code></td><td>Show BuiltWith report for page</td></tr>
+<tr><td><code>&#x3D;wa</code></td><td>Show Wappalyzer report for page</td></tr>
 <tr><td><code>;pd</code></td><td>Toggle PDF viewer from SurfingKeys</td></tr>
 <tr><td><code>gxE</code></td><td>Close tab to left</td></tr>
 <tr><td><code>gxR</code></td><td>Close tab to right</td></tr>
 <tr><td><code>\cgh</code></td><td>Open clipboard string as GitHub path (e.g. 'torvalds/linux')</td></tr>
+<tr><td><code>F</code></td><td>Open a link in non-active new tab</td></tr>
+<tr><td><code>oh</code></td><td>Open URL from history</td></tr>
+<tr><td><code>\A</code></td><td>Open AWS service</td></tr>
 <tr><th colspan="2"><a href="//algolia.com"><img src="./assets/favicons/algolia.com.ico" width="16px"> algolia.com</a></th></tr><tr><td><strong>Mapping</strong></td><td><strong>Description</strong></td></tr>
 <tr><td><code>&lt;Space&gt;a</code></td><td>Open search result</td></tr>
 <tr><th colspan="2"><a href="//amazon.com"><img src="./assets/favicons/amazon.com.ico" width="16px"> amazon.com</a></th></tr><tr><td><strong>Mapping</strong></td><td><strong>Description</strong></td></tr>
@@ -85,18 +79,24 @@ sites have been included which can help you perform some common actions:
 <tr><td><code>&lt;Space&gt;A</code></td><td>View project (non-active new tab)</td></tr>
 <tr><th colspan="2"><a href="//craigslist.org"><img src="./assets/favicons/craigslist.org.ico" width="16px"> craigslist.org</a></th></tr><tr><td><strong>Mapping</strong></td><td><strong>Description</strong></td></tr>
 <tr><td><code>&lt;Space&gt;a</code></td><td>View listing</td></tr>
-<tr><th colspan="2"><a href="//dribbble.com"><img src="./assets/favicons/dribbble.com.ico" width="16px"> dribbble.com</a></th></tr><tr><td><strong>Mapping</strong></td><td><strong>Description</strong></td></tr>
-<tr><td><code>&lt;Space&gt;s</code></td><td>Heart Shot</td></tr>
-<tr><td><code>&lt;Space&gt;a</code></td><td>View shot</td></tr>
-<tr><td><code>&lt;Space&gt;A</code></td><td>View shot (non-active new tab)</td></tr>
-<tr><td><code>&lt;Space&gt;v</code></td><td>View attachment image</td></tr>
-<tr><td><code>&lt;Space&gt;V</code></td><td>Yank attachment image source URL</td></tr>
-<tr><td><code>&lt;Space&gt;z</code></td><td>Zoom shot</td></tr>
+<tr><th colspan="2"><a href="//devdocs.io"><img src="./assets/favicons/devdocs.io.ico" width="16px"> devdocs.io</a></th></tr><tr><td><strong>Mapping</strong></td><td><strong>Description</strong></td></tr>
+<tr><td><code>w</code></td><td>Scroll sidebar up</td></tr>
+<tr><td><code>s</code></td><td>Scroll sidebar down</td></tr>
+<tr><td><code>e</code></td><td>Scroll sidebar page up</td></tr>
+<tr><td><code>d</code></td><td>Scroll sidebar page down</td></tr>
+<tr><td><code>k</code></td><td>Scroll body up</td></tr>
+<tr><td><code>j</code></td><td>Scroll body down</td></tr>
+<tr><td><code>K</code></td><td>Scroll body page up</td></tr>
+<tr><td><code>J</code></td><td>Scroll body page down</td></tr>
 <tr><th colspan="2"><a href="//duckduckgo.com"><img src="./assets/favicons/duckduckgo.com.ico" width="16px"> duckduckgo.com</a></th></tr><tr><td><strong>Mapping</strong></td><td><strong>Description</strong></td></tr>
 <tr><td><code>&lt;Space&gt;a</code></td><td>Open search result</td></tr>
 <tr><td><code>&lt;Space&gt;A</code></td><td>Open search result (non-active new tab)</td></tr>
 <tr><td><code>]]</code></td><td>Show more results</td></tr>
 <tr><td><code>&lt;Space&gt;g</code></td><td>Open search in Google</td></tr>
+<tr><td><code>&lt;Space&gt;sgh</code></td><td>Search site:github.com</td></tr>
+<tr><td><code>&lt;Space&gt;sre</code></td><td>Search site:reddit.com</td></tr>
+<tr><th colspan="2"><a href="//ebay.com"><img src="./assets/favicons/ebay.com.ico" width="16px"> ebay.com</a></th></tr><tr><td><strong>Mapping</strong></td><td><strong>Description</strong></td></tr>
+<tr><td><code>&lt;Space&gt;fs</code></td><td>Fakespot</td></tr>
 <tr><th colspan="2"><a href="//fonts.adobe.com"><img src="./assets/favicons/fonts.adobe.com.ico" width="16px"> fonts.adobe.com</a></th></tr><tr><td><strong>Mapping</strong></td><td><strong>Description</strong></td></tr>
 <tr><td><code>&lt;Space&gt;a</code></td><td>Activate font</td></tr>
 <tr><td><code>&lt;Space&gt;s</code></td><td>Favorite font</td></tr>
@@ -104,6 +104,7 @@ sites have been included which can help you perform some common actions:
 <tr><td><code>&lt;Space&gt;A</code></td><td>Open repository Actions page</td></tr>
 <tr><td><code>&lt;Space&gt;C</code></td><td>Open repository Commits page</td></tr>
 <tr><td><code>&lt;Space&gt;I</code></td><td>Open repository Issues page</td></tr>
+<tr><td><code>&lt;Space&gt;N</code></td><td>Open notifications page</td></tr>
 <tr><td><code>&lt;Space&gt;P</code></td><td>Open repository Pull Requests page</td></tr>
 <tr><td><code>&lt;Space&gt;R</code></td><td>Open Repository page</td></tr>
 <tr><td><code>&lt;Space&gt;S</code></td><td>Open repository Settings page</td></tr>
@@ -120,13 +121,17 @@ sites have been included which can help you perform some common actions:
 <tr><td><code>&lt;Space&gt;e</code></td><td>View external link</td></tr>
 <tr><td><code>gu</code></td><td>Go up one path in the URL (GitHub)</td></tr>
 <tr><td><code>&lt;Space&gt;s</code></td><td>Toggle Star</td></tr>
-<tr><td><code>&lt;Space&gt;y</code></td><td>Copy Project Path</td></tr>
+<tr><td><code>&lt;Space&gt;yy</code></td><td>Copy Project Path</td></tr>
 <tr><td><code>&lt;Space&gt;Y</code></td><td>Copy Project Path (including domain)</td></tr>
 <tr><td><code>&lt;Space&gt;l</code></td><td>Toggle repo language stats</td></tr>
 <tr><td><code>&lt;Space&gt;D</code></td><td>View GoDoc for Project</td></tr>
 <tr><td><code>&lt;Space&gt;G</code></td><td>View on SourceGraph</td></tr>
-<tr><td><code>&lt;Space&gt;ra</code></td><td>View live raw version of file</td></tr>
+<tr><td><code>&lt;Space&gt;r</code></td><td>View live raw version of file</td></tr>
+<tr><td><code>&lt;Space&gt;yr</code></td><td>Copy raw link to file</td></tr>
+<tr><td><code>&lt;Space&gt;yf</code></td><td>Copy link to file</td></tr>
 <tr><td><code>&lt;Space&gt;gcp</code></td><td>Open clipboard string as file path in repo</td></tr>
+<tr><th colspan="2"><a href="//github.io"><img src="./assets/favicons/github.io.ico" width="16px"> github.io</a></th></tr><tr><td><strong>Mapping</strong></td><td><strong>Description</strong></td></tr>
+<tr><td><code>&lt;Space&gt;R</code></td><td>Open Repository page</td></tr>
 <tr><th colspan="2"><a href="//gitlab.com"><img src="./assets/favicons/gitlab.com.ico" width="16px"> gitlab.com</a></th></tr><tr><td><strong>Mapping</strong></td><td><strong>Description</strong></td></tr>
 <tr><td><code>&lt;Space&gt;s</code></td><td>Toggle Star</td></tr>
 <tr><td><code>&lt;Space&gt;y</code></td><td>Copy Project Path</td></tr>
@@ -141,6 +146,14 @@ sites have been included which can help you perform some common actions:
 <tr><td><code>&lt;Space&gt;o</code></td><td>Switch mode to Off</td></tr>
 <tr><td><code>&lt;Space&gt;f</code></td><td>Switch fan On</td></tr>
 <tr><td><code>&lt;Space&gt;F</code></td><td>Switch fan Off</td></tr>
+<tr><th colspan="2"><a href="//ikea.com"><img src="./assets/favicons/ikea.com.ico" width="16px"> ikea.com</a></th></tr><tr><td><strong>Mapping</strong></td><td><strong>Description</strong></td></tr>
+<tr><td><code>&lt;Space&gt;d</code></td><td>Toggle Product Details</td></tr>
+<tr><td><code>&lt;Space&gt;i</code></td><td>Toggle Product Details</td></tr>
+<tr><td><code>&lt;Space&gt;r</code></td><td>Toggle Product Reviews</td></tr>
+<tr><td><code>&lt;Space&gt;C</code></td><td>Open Cart page</td></tr>
+<tr><td><code>&lt;Space&gt;P</code></td><td>Open Profile page</td></tr>
+<tr><td><code>&lt;Space&gt;F</code></td><td>Open Favorites page</td></tr>
+<tr><td><code>&lt;Space&gt;O</code></td><td>Open Orders page</td></tr>
 <tr><th colspan="2"><a href="//news.ycombinator.com"><img src="./assets/favicons/news.ycombinator.com.ico" width="16px"> news.ycombinator.com</a></th></tr><tr><td><strong>Mapping</strong></td><td><strong>Description</strong></td></tr>
 <tr><td><code>&lt;Space&gt;x</code></td><td>Collapse comment</td></tr>
 <tr><td><code>&lt;Space&gt;X</code></td><td>Collapse next comment</td></tr>
@@ -158,6 +171,9 @@ sites have been included which can help you perform some common actions:
 <tr><td><code>&lt;Space&gt;a</code></td><td>View product (external)</td></tr>
 <tr><td><code>&lt;Space&gt;v</code></td><td>View product</td></tr>
 <tr><td><code>&lt;Space&gt;s</code></td><td>Upvote product</td></tr>
+<tr><th colspan="2"><a href="//raw.githubusercontent.com"><img src="./assets/favicons/raw.githubusercontent.com.ico" width="16px"> raw.githubusercontent.com</a></th></tr><tr><td><strong>Mapping</strong></td><td><strong>Description</strong></td></tr>
+<tr><td><code>&lt;Space&gt;R</code></td><td>Open Repository page</td></tr>
+<tr><td><code>&lt;Space&gt;F</code></td><td>Open Source File</td></tr>
 <tr><th colspan="2"><a href="//reddit.com"><img src="./assets/favicons/reddit.com.ico" width="16px"> reddit.com</a></th></tr><tr><td><strong>Mapping</strong></td><td><strong>Description</strong></td></tr>
 <tr><td><code>&lt;Space&gt;x</code></td><td>Collapse comment</td></tr>
 <tr><td><code>&lt;Space&gt;X</code></td><td>Collapse next comment</td></tr>
@@ -168,6 +184,28 @@ sites have been included which can help you perform some common actions:
 <tr><td><code>&lt;Space&gt;A</code></td><td>View post (link) (non-active new tab)</td></tr>
 <tr><td><code>&lt;Space&gt;c</code></td><td>View post (comments)</td></tr>
 <tr><td><code>&lt;Space&gt;C</code></td><td>View post (comments) (non-active new tab)</td></tr>
+<tr><th colspan="2"><a href="//rescript-lang.org"><img src="./assets/favicons/rescript-lang.org.ico" width="16px"> rescript-lang.org</a></th></tr><tr><td><strong>Mapping</strong></td><td><strong>Description</strong></td></tr>
+<tr><td><code>i</code></td><td>Focus search field</td></tr>
+<tr><td><code>&lt;Space&gt;a</code></td><td>Open docs link</td></tr>
+<tr><td><code>&lt;Space&gt;L</code></td><td>Open language manual</td></tr>
+<tr><td><code>&lt;Space&gt;R</code></td><td>Open ReScript + React docs</td></tr>
+<tr><td><code>&lt;Space&gt;G</code></td><td>Open GenType docs</td></tr>
+<tr><td><code>&lt;Space&gt;P</code></td><td>Open package index</td></tr>
+<tr><td><code>&lt;Space&gt;Y</code></td><td>Open playground</td></tr>
+<tr><td><code>&lt;Space&gt;S</code></td><td>Open syntax lookup</td></tr>
+<tr><td><code>&lt;Space&gt;F</code></td><td>Open community forum</td></tr>
+<tr><td><code>&lt;Space&gt;A</code></td><td>Open API docs</td></tr>
+<tr><td><code>&lt;Space&gt;J</code></td><td>Open JS API docs</td></tr>
+<tr><td><code>&lt;Space&gt;B</code></td><td>Open Belt API docs</td></tr>
+<tr><td><code>&lt;Space&gt;D</code></td><td>Open DOM API docs</td></tr>
+<tr><td><code>w</code></td><td>Scroll sidebar up</td></tr>
+<tr><td><code>s</code></td><td>Scroll sidebar down</td></tr>
+<tr><td><code>e</code></td><td>Scroll sidebar page up</td></tr>
+<tr><td><code>d</code></td><td>Scroll sidebar page down</td></tr>
+<tr><td><code>k</code></td><td>Scroll body up</td></tr>
+<tr><td><code>j</code></td><td>Scroll body down</td></tr>
+<tr><td><code>K</code></td><td>Scroll body page up</td></tr>
+<tr><td><code>J</code></td><td>Scroll body page down</td></tr>
 <tr><th colspan="2"><a href="//stackoverflow.com"><img src="./assets/favicons/stackoverflow.com.ico" width="16px"> stackoverflow.com</a></th></tr><tr><td><strong>Mapping</strong></td><td><strong>Description</strong></td></tr>
 <tr><td><code>&lt;Space&gt;a</code></td><td>View question</td></tr>
 <tr><th colspan="2"><a href="//twitter.com"><img src="./assets/favicons/twitter.com.ico" width="16px"> twitter.com</a></th></tr><tr><td><strong>Mapping</strong></td><td><strong>Description</strong></td></tr>
@@ -184,6 +222,7 @@ sites have been included which can help you perform some common actions:
 <tr><td><code>&lt;Space&gt;s</code></td><td>Toggle simple version of current article</td></tr>
 <tr><td><code>&lt;Space&gt;a</code></td><td>View page</td></tr>
 <tr><td><code>&lt;Space&gt;e</code></td><td>View external link</td></tr>
+<tr><td><code>&lt;Space&gt;ys</code></td><td>Copy article summary as Markdown</td></tr>
 <tr><td><code>&lt;Space&gt;R</code></td><td>View WikiRank for current article</td></tr>
 <tr><th colspan="2"><a href="//www.google.com"><img src="./assets/favicons/www.google.com.ico" width="16px"> www.google.com</a></th></tr><tr><td><strong>Mapping</strong></td><td><strong>Description</strong></td></tr>
 <tr><td><code>&lt;Space&gt;a</code></td><td>Open search result</td></tr>
@@ -196,17 +235,17 @@ sites have been included which can help you perform some common actions:
 <tr><td><code>C</code></td><td>Open channel</td></tr>
 <tr><td><code>gH</code></td><td>Goto homepage</td></tr>
 <tr><td><code>F</code></td><td>Toggle fullscreen</td></tr>
+<tr><td><code>Yt</code></td><td>Copy YouTube video link for current time</td></tr>
+<tr><td><code>Ym</code></td><td>Copy YouTube video markdown link for current time</td></tr>
 
 </tbody>
 </table>
 
-### Search Suggestion Engines
+### Omnibar Search Engine Integrations
 
-There are currently 55 search suggestion engines.
+To open the omnibar integration for a search engine, press the search leader key (`a` by default) followed by the alias for the desired search engine, as found in the table below.
 
-You can access a search suggestion prompt by pressing the search leader key, which is `a` by default, followed by the search engine alias.
-
-For example, to open the Wikipedia suggestion engine, you would type `awp` while in normal mode.
+For example, to open the Wikipedia omnibar integration, type `awp`.
 
 <table>
 <thead>
@@ -234,21 +273,21 @@ For example, to open the Wikipedia suggestion engine, you would type `awp` while
   <tr>
     <td><a href="https://bbs.archlinux.org"><img src="./assets/favicons/bbs.archlinux.org.ico" width="16px"> </a></td>
     <td><code>af</code></td>
-    <td>archforums</td>
+    <td>archforums <a title="requires private API key" href="#optional-private-api-key-configuration">&#8727;</a></td>
     <td><a href="https://bbs.archlinux.org">bbs.archlinux.org</a></td>
     <td></td>
   </tr>
   <tr>
     <td><a href="https://www.archlinux.org"><img src="./assets/favicons/www.archlinux.org.ico" width="16px"> </a></td>
     <td><code>al</code></td>
-    <td>archlinux</td>
+    <td>archlinux <a title="requires private API key" href="#optional-private-api-key-configuration">&#8727;</a></td>
     <td><a href="https://www.archlinux.org">www.archlinux.org</a></td>
     <td></td>
   </tr>
   <tr>
     <td><a href="https://alternativeto.net"><img src="./assets/favicons/alternativeto.net.ico" width="16px"> </a></td>
     <td><code>at</code></td>
-    <td>alternativeTo</td>
+    <td>alternativeTo <a title="requires private API key" href="#optional-private-api-key-configuration">&#8727;</a></td>
     <td><a href="https://alternativeto.net">alternativeto.net</a></td>
     <td></td>
   </tr>
@@ -257,7 +296,7 @@ For example, to open the Wikipedia suggestion engine, you would type `awp` while
     <td><code>au</code></td>
     <td>AUR</td>
     <td><a href="https://aur.archlinux.org">aur.archlinux.org</a></td>
-    <td></td>
+    <td><a href="#aur">:framed_picture:</a></td>
   </tr>
   <tr>
     <td><a href="https://wiki.archlinux.org"><img src="./assets/favicons/wiki.archlinux.org.ico" width="16px"> </a></td>
@@ -271,6 +310,13 @@ For example, to open the Wikipedia suggestion engine, you would type `awp` while
     <td><code>az</code></td>
     <td>amazon</td>
     <td><a href="https://smile.amazon.com">smile.amazon.com</a></td>
+    <td><a href="#amazon">:framed_picture:</a></td>
+  </tr>
+  <tr>
+    <td><a href="https://caniuse.com"><img src="./assets/favicons/caniuse.com.ico" width="16px"> </a></td>
+    <td><code>ci</code></td>
+    <td>caniuse</td>
+    <td><a href="https://caniuse.com">caniuse.com</a></td>
     <td></td>
   </tr>
   <tr>
@@ -283,21 +329,21 @@ For example, to open the Wikipedia suggestion engine, you would type `awp` while
   <tr>
     <td><a href="https://www.crunchbase.com"><img src="./assets/favicons/www.crunchbase.com.ico" width="16px"> </a></td>
     <td><code>co</code></td>
-    <td>crunchbase-orgs</td>
+    <td>crunchbase-orgs <a title="requires private API key" href="#optional-private-api-key-configuration">&#8727;</a></td>
     <td><a href="https://www.crunchbase.com">www.crunchbase.com</a></td>
     <td></td>
   </tr>
   <tr>
     <td><a href="https://www.crunchbase.com"><img src="./assets/favicons/www.crunchbase.com.ico" width="16px"> </a></td>
     <td><code>cp</code></td>
-    <td>crunchbase-people</td>
+    <td>crunchbase-people <a title="requires private API key" href="#optional-private-api-key-configuration">&#8727;</a></td>
     <td><a href="https://www.crunchbase.com">www.crunchbase.com</a></td>
-    <td><a href="#crunchbase-people">:framed_picture:</a></td>
+    <td></td>
   </tr>
   <tr>
     <td><a href="https://chrome.google.com"><img src="./assets/favicons/chrome.google.com.ico" width="16px"> </a></td>
     <td><code>cs</code></td>
-    <td>chromestore</td>
+    <td>chromestore <a title="requires private API key" href="#optional-private-api-key-configuration">&#8727;</a></td>
     <td><a href="https://chrome.google.com">chrome.google.com</a></td>
     <td></td>
   </tr>
@@ -367,7 +413,7 @@ For example, to open the Wikipedia suggestion engine, you would type `awp` while
   <tr>
     <td><a href="https://hex.pm"><img src="./assets/favicons/hex.pm.ico" width="16px"> </a></td>
     <td><code>ex</code></td>
-    <td>exdocs</td>
+    <td>exdocs <a title="requires private API key" href="#optional-private-api-key-configuration">&#8727;</a></td>
     <td><a href="https://hex.pm">hex.pm</a></td>
     <td></td>
   </tr>
@@ -376,7 +422,7 @@ For example, to open the Wikipedia suggestion engine, you would type `awp` while
     <td><code>fa</code></td>
     <td>firefox-addons</td>
     <td><a href="https://addons.mozilla.org">addons.mozilla.org</a></td>
-    <td></td>
+    <td><a href="#firefox-addons">:framed_picture:</a></td>
   </tr>
   <tr>
     <td><a href="https://addons.mozilla.org"><img src="./assets/favicons/addons.mozilla.org.ico" width="16px"> </a></td>
@@ -409,7 +455,7 @@ For example, to open the Wikipedia suggestion engine, you would type `awp` while
   <tr>
     <td><a href="https://golang.org"><img src="./assets/favicons/golang.org.ico" width="16px"> </a></td>
     <td><code>gg</code></td>
-    <td>golang</td>
+    <td>golang <a title="requires private API key" href="#optional-private-api-key-configuration">&#8727;</a></td>
     <td><a href="https://golang.org">golang.org</a></td>
     <td></td>
   </tr>
@@ -439,20 +485,6 @@ For example, to open the Wikipedia suggestion engine, you would type `awp` while
     <td><code>gs</code></td>
     <td>google-scholar</td>
     <td><a href="https://scholar.google.com">scholar.google.com</a></td>
-    <td></td>
-  </tr>
-  <tr>
-    <td><a href="https://gowalker.org"><img src="./assets/favicons/gowalker.org.ico" width="16px"> </a></td>
-    <td><code>gw</code></td>
-    <td>gowalker</td>
-    <td><a href="https://gowalker.org">gowalker.org</a></td>
-    <td></td>
-  </tr>
-  <tr>
-    <td><a href="https://hackage.haskell.org"><img src="./assets/favicons/hackage.haskell.org.ico" width="16px"> </a></td>
-    <td><code>ha</code></td>
-    <td>hackage</td>
-    <td><a href="https://hackage.haskell.org">hackage.haskell.org</a></td>
     <td></td>
   </tr>
   <tr>
@@ -493,8 +525,15 @@ For example, to open the Wikipedia suggestion engine, you would type `awp` while
   <tr>
     <td><a href="https://jquery.com"><img src="./assets/favicons/jquery.com.ico" width="16px"> </a></td>
     <td><code>jq</code></td>
-    <td>jquery</td>
+    <td>jquery <a title="requires private API key" href="#optional-private-api-key-configuration">&#8727;</a></td>
     <td><a href="https://jquery.com">jquery.com</a></td>
+    <td></td>
+  </tr>
+  <tr>
+    <td><a href="https://kagi.com"><img src="./assets/favicons/kagi.com.ico" width="16px"> </a></td>
+    <td><code>ka</code></td>
+    <td>kagi</td>
+    <td><a href="https://kagi.com">kagi.com</a></td>
     <td></td>
   </tr>
   <tr>
@@ -507,7 +546,7 @@ For example, to open the Wikipedia suggestion engine, you would type `awp` while
   <tr>
     <td><a href="https://nodejs.org"><img src="./assets/favicons/nodejs.org.ico" width="16px"> </a></td>
     <td><code>no</code></td>
-    <td>node</td>
+    <td>node <a title="requires private API key" href="#optional-private-api-key-configuration">&#8727;</a></td>
     <td><a href="https://nodejs.org">nodejs.org</a></td>
     <td></td>
   </tr>
@@ -516,7 +555,7 @@ For example, to open the Wikipedia suggestion engine, you would type `awp` while
     <td><code>np</code></td>
     <td>npm</td>
     <td><a href="https://www.npmjs.com">www.npmjs.com</a></td>
-    <td><a href="#npm">:framed_picture:</a></td>
+    <td></td>
   </tr>
   <tr>
     <td><a href="https://www.owasp.org"><img src="./assets/favicons/www.owasp.org.ico" width="16px"> </a></td>
@@ -554,6 +593,13 @@ For example, to open the Wikipedia suggestion engine, you would type `awp` while
     <td><a href="#thesaurus">:framed_picture:</a></td>
   </tr>
   <tr>
+    <td><a href="https://twitter.com"><img src="./assets/favicons/twitter.com.ico" width="16px"> </a></td>
+    <td><code>tw</code></td>
+    <td>twitter</td>
+    <td><a href="https://twitter.com">twitter.com</a></td>
+    <td></td>
+  </tr>
+  <tr>
     <td><a href="https://vim.fandom.com"><img src="./assets/favicons/vim.fandom.com.ico" width="16px"> </a></td>
     <td><code>vw</code></td>
     <td>vimwiki</td>
@@ -563,7 +609,7 @@ For example, to open the Wikipedia suggestion engine, you would type `awp` while
   <tr>
     <td><a href="http://www.wolframalpha.com"><img src="./assets/favicons/www.wolframalpha.com.ico" width="16px"> </a></td>
     <td><code>wa</code></td>
-    <td>wolframalpha</td>
+    <td>wolframalpha <a title="requires private API key" href="#optional-private-api-key-configuration">&#8727;</a></td>
     <td><a href="http://www.wolframalpha.com">www.wolframalpha.com</a></td>
     <td><a href="#wolframalpha">:framed_picture:</a><a href="#wolframalpha-2">:framed_picture:</a></td>
   </tr>
@@ -598,148 +644,152 @@ For example, to open the Wikipedia suggestion engine, you would type `awp` while
   <tr>
     <td><a href="https://www.youtube.com"><img src="./assets/favicons/www.youtube.com.ico" width="16px"> </a></td>
     <td><code>yt</code></td>
-    <td>youtube</td>
+    <td>youtube <a title="requires private API key" href="#optional-private-api-key-configuration">&#8727;</a></td>
     <td><a href="https://www.youtube.com">www.youtube.com</a></td>
     <td><a href="#youtube">:framed_picture:</a></td>
   </tr>
 </tbody>
 </table>
 
-<!--
-| Alias | Name | Domain | Screenshots |
-| ----- | ---- | ------ | ----------- |
--->
+<a href="#optional-private-api-key-configuration">&#8727; requires private API key</a>
 
-Installation
-------------
+## Installation
 
-### Dependencies
+Requires **`Surfingkeys v1.0.0 or newer`**.
 
-Building `surfingkeys-conf` requires a few dependencies to be installed:
+### Pre-built
 
-- __Surfingkeys__ `^0.9.40`
-- __git__
-- __node__
-- __gulp__
+_Coming soon!_
 
-### Building & Installing
+### Build and Install
 
-1. __Clone this repository__
-	```shell
-	$ git clone http://github.com/b0o/surfingkeys-conf
-	$ cd surfingkeys-conf
-	```
+#### Dependencies
 
-2. __Install the NodeJS build dependencies__
-	```shell
-	$ npm install
-	```
+- **git**
+- **node.js v17**
 
-3. __*(Optional)* Private API Key Configuration__
+#### Procedure
 
-	Some search suggestion engines require private API keys for access. These
-	keys are defined in `conf.priv.js`, which is not itself included in this repository.
-	An example configuration containing instructions on how to generate each API key
-	can be found in [conf.priv.example.js](./conf.priv.example.js).
+1.  **Clone**
 
-	Copy the example private configuration:
+    ```shell
+    $ git clone http://github.com/b0o/surfingkeys-conf
+    $ cd surfingkeys-conf
+    ```
 
-	```shell
-	$ cp ./conf.priv.example.js ./conf.priv.js
-	```
+2.  **Install Node.js dependencies**
 
-	Open `./conf.priv.js` in your favorite editor and follow the instructions inside:
+    ```shell
+    $ npm install
+    ```
 
-	```shell
-	$ vim ./conf.priv.js
-	```
+3.  **Gulp Build/Install**
 
-4. __Gulp Build/Install__
-	```shell
-	$ gulp install # OR "gulp build" to build to ./build/surfingkeys.js without installing
-	```
+    ```shell
+    $ npm run gulp install # OR "npm run gulp build" to build to ./build/surfingkeys.js without installing
+    ```
 
-	This will build the final configuration file and place it at `~/.config/surfingkeys.js`.
-	If you already have a file in that location, make sure you back it up first!
+    This will build the final configuration file and place it at `~/.config/surfingkeys.js`.
+    If you already have a file in that location, make sure you back it up first!
 
-5. __Load your configuration into the SurfingKeys Extension__
+4.  **Load your configuration into the SurfingKeys Extension**
 
-	<details>
-	<summary><strong>Option A</strong> <em>(recommended)</em>: Configure SurfingKeys to automatically load the configuration file</summary>
-	<blockquote><details>
-	<summary><strong>Local File Access (Chrome/Chromium only)</strong></summary>
+    <details>
+    <summary><strong>Option A</strong> <em>(recommended)</em>: Configure SurfingKeys to automatically load the configuration file</summary>
+    <blockquote><details>
+    <summary><strong>Local File Access (Chrome/Chromium only)</strong></summary>
 
-	- __I.__ Visit `chrome://extensions/` and enable `Allow access to file URLs` for the Surfingkeys extension.
+    - **I.** Visit `chrome://extensions/` and enable `Allow access to file URLs` for the Surfingkeys extension.
 
-	- __II.__ Open the SurfingKeys configuration page: `chrome-extension://mffcegbjcdejldmihkogmcnkgbbhioid/pages/options.html`.
+    - **II.** Open the SurfingKeys configuration page: `chrome-extension://gfbliohnnapiefjpjlpjnehglfpaknnc/pages/options.html`.
 
-	- __III.__ Set the `Load settings from` option to point to the configuration file.
+    - **III.** Set the `Load settings from` option to point to the configuration file.
 
-		_Note: you must specify the full, absolute path; environment variables like `$HOME` or the tilde `~` won't work_:
+      _Note: you must specify the full, absolute path; the tilde `~` or environment variables like `$HOME` won't work_:
 
-		- __Linux__: `file:///home/{USERNAME}/.config/surfingkeys.js` (replace `{USERNAME}` with your username) 
-		- __macOS__: `file:///Users/{USERNAME}/.config/surfingkeys.js` (replace `{USERNAME}` with your username) 
-		- __Windows__: `file://%Homedrive%%Homepath%/surfingkeys.js` (This is a guess, please correct me if I'm wrong)
+      - __Linux__: `file:///home/{USERNAME}/.config/surfingkeys.js` (replace `{USERNAME}` with your username)
+      - __macOS__: `file:///Users/{USERNAME}/.config/surfingkeys.js` (replace `{USERNAME}` with your username)
+      - __Windows__: `file://%Homedrive%%Homepath%/surfingkeys.js` (This is a guess, please correct me if I'm wrong)
 
-	- __IV.__ Hack Away! If you ever make a change to any of your configuration files in the future, simply run `gulp install` again and your 
-		new configuration will automatically be loaded by SurfingKeys.
+    - **IV.** Repeat these steps after you make any changes to your configuration files. Your new configuration will be automatically loaded by SurfingKeys.
 
-	</details></blockquote>
-	<blockquote><details>
-	<summary><strong>Local Web Server (Chrome, Chromium, and Firefox)</strong></summary>
+    </details></blockquote>
+    <blockquote><details>
+    <summary><strong>Local Web Server (Chrome, Chromium, and Firefox)</strong></summary>
 
-	- __I.__ Run the configuration file server:
+    - **I.** Run the configuration file server:
 
-		```shell
-		$ gulp serve-simple
-		```
+      ```shell
+      $ gulp serve-simple
+      ```
 
-		Alternatively, you can use the `gulp serve` task, which automatically rebuilds the configuration file whenever a source file is modified.
+      Alternatively, you can use the `gulp serve` task, which automatically rebuilds the configuration file whenever a source file is modified.
 
-	- __II.__ Open the SurfingKeys configuration page: 
+    - **II.** Open the SurfingKeys configuration page:
 
-		Chrome: `chrome-extension://mffcegbjcdejldmihkogmcnkgbbhioid/pages/options.html`
+      Chrome: `chrome-extension://gfbliohnnapiefjpjlpjnehglfpaknnc/pages/options.html`
 
-		Firefox: `moz-extension://7b04efeb-0b36-47f6-9f57-70293e5ee7b2/pages/options.html`
+      Firefox: `moz-extension://7b04efeb-0b36-47f6-9f57-70293e5ee7b2/pages/options.html`
 
-	- __III.__ Set the `Load settings from` option to `http://localhost:9919`
+    - **III.** Set the `Load settings from` option to `http://localhost:9919`
 
-	- __IV.__ You will want to configure your system to automatically run `gulp serve-simple` from the repository directory on boot, otherwise 
-		SurfingKeys will lose the settings as soon as the local web server is down.
-	
-		If you run Linux with systemd, an [example user service](./surfingkeys-conf.service) is provided in this repo. You will need to modify 
-		it to contain the proper path to your surfingkeys-conf repo.
+    - **IV.** SurfingKeys will lose the settings as soon as the local web server shuts down. You will likely want to configure your system to automatically
+      start the server on login.
 
-	- __V.__ Hack Away! If you ever make a change to any of your configuration files in the future, simply run `gulp build` again and your new 
-		configuration will automatically be loaded by SurfingKeys.
+      If you run Linux with systemd, an [example user service](./extra/surfingkeys-conf.service) is provided in this repo. You will need to modify
+      it to contain the proper path to your `surfingkeys-conf` repo.
 
-	- __Note:__ This method starts a web server on `localhost:9919`. Depending on your firewall configuration, other devices on your local network 
-		(or the internet at large in the case of misconfigured router firewall) may be able to read your configuration file, including any private
-		API keys or other secrets you have configured in `conf.priv.js`. Proceed with caution.
+    - **V.** Repeat the `npm run gulp build` command from step 4 above after you make any changes to your configuration files.
+      Your new configuration will be automatically loaded by the web server and SurfingKeys will pick it up the next time you load a webpage.
 
-	</details></blockquote>
-	</details>
-	<details>
-	<summary><strong>Option B</strong>: Manually copy/paste into the SurfingKeys configuration form</summary>
+    - **Note:** This method starts a local web server on `localhost:9919` which serves your built configuration file. Depending on your firewall configuration,
+      other devices on your network may be able to read your configuration file, including any private API keys or other secrets you have configured in `conf.priv.js`.
+      Proceed with caution.
 
-	- __I.__ Copy the contents of `./build/surfingkeys.js` (or `$HOME/.config/surfingkeys.js` if you ran `gulp install`)
+    </details></blockquote>
+    </details>
+    <details>
+    <summary><strong>Option B</strong>: Manually copy/paste into the SurfingKeys configuration form</summary>
 
-	- __II.__ Open the SurfingKeys configuration page: 
+    - **I.** Copy the contents of `./build/surfingkeys.js` (or `$HOME/.config/surfingkeys.js` if you ran `gulp install`)
 
-		Chrome: `chrome-extension://mffcegbjcdejldmihkogmcnkgbbhioid/pages/options.html`
+    - **II.** Paste the contents into the SurfingKeys configuration page:
 
-		Firefox: `moz-extension://7b04efeb-0b36-47f6-9f57-70293e5ee7b2/pages/options.html`
+      Chrome: `chrome-extension://gfbliohnnapiefjpjlpjnehglfpaknnc/pages/options.html`
 
-	- __III.__ Paste into the text box, then press `save`
+      Firefox: `moz-extension://7b04efeb-0b36-47f6-9f57-70293e5ee7b2/pages/options.html`
 
-	- __IV.__ Repeat steps 4 - 5 after any changes you make to any of your configuration files.
+    - **III.** Repeat these steps after you make any changes to your configuration files. Your new configuration will be automatically loaded by SurfingKeys.
 
-	</details>
+    </details>
 
-Screenshots
------------
-##### crunchbase-people
-![crunchbase-people screenshot](./assets/screenshots/cp.png)
+### Optional: Private API Key Configuration
+
+Some omnibar search engine integrations require private API keys for access (marked with a &#8727; in [the table](#omnibar-search-engine-integrations) above).
+These keys are to be defined in `./src/conf.priv.js`, which should be created based on the template: [`./src/conf.priv.example.js`](./src/conf.priv.example.js).
+The template contains instructions on how to generate each API key.
+
+Note: The `./src/conf.priv.js` does not exist in the repository, you need to copy the template file. The `conf.priv.js` should not be commited!
+
+1. Copy the example private configuration:
+
+```shell
+$ cp ./src/conf.priv.example.js ./src/conf.priv.js
+```
+
+2. Open `./src/conf.priv.js` in your favorite editor and follow the instructions inside:
+
+```shell
+$ vim ./src/conf.priv.js
+```
+
+## Screenshots
+
+##### AUR
+![AUR screenshot](./assets/screenshots/au.png)
+
+##### amazon
+![amazon screenshot](./assets/screenshots/az.png)
 
 ##### define
 ![define screenshot](./assets/screenshots/de.png)
@@ -749,6 +799,9 @@ Screenshots
 
 ##### domainr
 ![domainr screenshot](./assets/screenshots/do.png)
+
+##### firefox-addons
+![firefox-addons screenshot](./assets/screenshots/fa.png)
 
 ##### github
 ![github screenshot](./assets/screenshots/gh.png)
@@ -761,9 +814,6 @@ Screenshots
 
 ##### mdn
 ![mdn screenshot](./assets/screenshots/md.png)
-
-##### npm
-![npm screenshot](./assets/screenshots/np.png)
 
 ##### thesaurus
 ![thesaurus screenshot](./assets/screenshots/th.png)
@@ -779,17 +829,6 @@ Screenshots
 
 
 
-Todo
-----
+## Copyright
 
-- [ ] Include aliased sites in README
-- [ ] Add `CHANGELOG.md` using [conventional-changelog](https://github.com/conventional-changelog/conventional-changelog)
-- [ ] Improve code organization
-- [ ] Ensure screenshots have a plain white background
-- [ ] Add additional screenshots
-- [x] Simplify installation process
-- [x] Feed the kittens
-
-Copyright
----------
-<p><h4>Author</h4>&copy; 2017-2021 <a href="https://github.com/b0o">Maddison Hellstrom</a></p><p><h4>License</h4>Released under the <a href="./LICENSE">MIT License</a></p>
+<p><h4>Author</h4>&copy; 2017-2022 <a href="https://github.com/b0o">Maddison Hellstrom</a></p><p><h4>License</h4>Released under the <a href="./LICENSE">MIT License</a></p>

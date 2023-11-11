@@ -1,52 +1,67 @@
-const { keys } = require("./conf.priv.js")
-const { escape, createSuggestionItem, createURLItem } = require("./util")
+import priv from "./conf.priv.js"
+import util from "./util.js"
 
+const {
+  escapeHTML,
+  createSuggestionItem,
+  createURLItem,
+  prettyDate,
+  getDuckduckgoFaviconUrl,
+  localStorage,
+  runtimeHttpRequest,
+} = util
+
+// TODO: use a Babel loader to import these images
 const wpDefaultIcon = "data:image/svg+xml,%3C%3Fxml%20version%3D%221.0%22%20encoding%3D%22utf-8%22%3F%3E%0A%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2056%2056%22%20enable-background%3D%22new%200%200%2056%2056%22%3E%0A%20%20%20%20%3Cpath%20fill%3D%22%23eee%22%20d%3D%22M0%200h56v56h-56z%22%2F%3E%0A%20%20%20%20%3Cpath%20fill%3D%22%23999%22%20d%3D%22M36.4%2013.5h-18.6v24.9c0%201.4.9%202.3%202.3%202.3h18.7v-25c.1-1.4-1-2.2-2.4-2.2zm-6.2%203.5h5.1v6.4h-5.1v-6.4zm-8.8%200h6v1.8h-6v-1.8zm0%204.6h6v1.8h-6v-1.8zm0%2015.5v-1.8h13.8v1.8h-13.8zm13.8-4.5h-13.8v-1.8h13.8v1.8zm0-4.7h-13.8v-1.8h13.8v1.8z%22%2F%3E%0A%3C%2Fsvg%3E%0A"
-
 const cbDefaultIcon = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAAAAAByaaZbAAAAIGNIUk0AAHomAACAhAAA+gAAAIDoAAB1MAAA6mAAADqYAAAXcJy6UTwAAAACYktHRAD/h4/MvwAAAAlwSFlzAAAOwwAADsMBx2+oZAAAAAd0SU1FB+EICxEMErRVWUQAAABOdEVYdFJhdyBwcm9maWxlIHR5cGUgZXhpZgAKZXhpZgogICAgICAyMAo0NTc4Njk2NjAwMDA0OTQ5MmEwMDA4MDAwMDAwMDAwMDAwMDAwMDAwCnwMkD0AAAGXSURBVEjH1ZRvc4IwDMb7/T8dbVr/sEPlPJQd3g22GzJdmxVOHaQa8N2WN7wwvyZ5Eh/hngzxTwDr0If/TAK67POxbqxnpgCIx9dkrkEvswYnAFiutFSgtQapS4ejwFYqbXQXBmC+QxawuI/MJb0LiCq0DICNHoZRKQdYLKQZEhATcQmwDYD5GR8DDtfqaYAMActvTiVMaUvqhZPVYhYAK2SBAwGMTHngnc4wVmFPW9L6k1PJxbSCkfvhqolKSQhsWSClizNyxwAWdzIADixQRXRmdWSHthsg+TknaztFMZgC3vh/nG/qo68TLAKrCSrUg1ulp3cH+BpItBp3DZf0lFXVOIDnBdwKkLO4D5Q3QMO6HJ+hUb1NKNWMGJn3jf4ejPKn99CXOtsuyab95obGL/rpdZ7oIJK87iPiumG01drbdggoCZuq/f0XaB8/FbG62Ta5cD97XJwuZUT7ONbZTIK5m94hBuQs8535MsL5xxPw6ZoNj0DiyzhhcyMf9BJ0Jk1uRRpNyb4y0UaM9UI7E8+kt/EHgR/R6042JzmiwgAAACV0RVh0ZGF0ZTpjcmVhdGUAMjAxNy0wOC0xMVQxNzoxMjoxOC0wNDowMLy29LgAAAAldEVYdGRhdGU6bW9kaWZ5ADIwMTctMDgtMTFUMTc6MTI6MTgtMDQ6MDDN60wEAAAAAElFTkSuQmCC"
 
 const locale = typeof navigator !== "undefined" ? navigator.language : ""
 
 const completions = {}
 
-// Helper functions for Google Custom Search Engine completions
-const googleCxURL = (alias) => {
-  const key = `google_cx_${alias}`
-  return `https://www.googleapis.com/customsearch/v1?key=${keys.google_cs}&cx=${keys[key]}&q=`
-}
-
-const googleCxPublicURL = (alias) => {
-  const key = `google_cx_${alias}`
-  return `https://cse.google.com/cse/publicurl?cx=${keys[key]}&q=`
-}
-
-const googleCxCallback = (response) => {
-  const res = JSON.parse(response.text).items
-  return res.map((s) => createSuggestionItem(`
-      <div>
-        <div class="title"><strong>${s.htmlTitle}</strong></div>
-        <div>${s.htmlSnippet}</div>
-      </div>
-    `, { url: s.link }))
+const googleCustomSearch = (opts) => {
+  let favicon = "https://google.com/favicon.ico"
+  if (opts.favicon) {
+    favicon = opts.favicon
+  } else if (opts.domain) {
+    favicon = getDuckduckgoFaviconUrl(`https://${opts.domain}`)
+  } else if (opts.search) {
+    favicon = getDuckduckgoFaviconUrl(opts.search)
+  }
+  return {
+    favicon,
+    compl:    `https://www.googleapis.com/customsearch/v1?key=${priv.keys.google_cs}&cx=${priv.keys[`google_cx_${opts.alias}`]}&q=`,
+    search:   `https://cse.google.com/cse/publicurl?cx=${priv.keys[`google_cx_${opts.alias}`]}&q=`,
+    callback: (response) => {
+      const res = JSON.parse(response.text).items
+      return res.map((s) => createSuggestionItem(`
+        <div>
+          <div class="title"><strong>${s.htmlTitle}</strong></div>
+          <div>${s.htmlSnippet}</div>
+        </div>
+      `, { url: s.link }))
+    },
+    priv: true,
+    ...opts,
+  }
 }
 
 // ****** Arch Linux ****** //
 
 // Arch Linux official repos
-completions.al = {
-  alias:    "al",
-  name:     "archlinux",
-  search:   "https://www.archlinux.org/packages/?arch=x86_64&q=",
-  compl:    googleCxURL("al"),
-  callback: googleCxCallback,
-}
+completions.al = googleCustomSearch({
+  alias:  "al",
+  name:   "archlinux",
+  search: "https://www.archlinux.org/packages/?arch=x86_64&q=",
+})
 
 // Arch Linux AUR
 completions.au = {
-  alias:  "au",
-  name:   "AUR",
-  search: "https://aur.archlinux.org/packages/?O=0&SeB=nd&outdated=&SB=v&SO=d&PP=100&do_Search=Go&K=",
-  compl:  "https://aur.archlinux.org/rpc?type=suggest&arg=",
+  alias:   "au",
+  name:    "AUR",
+  search:  "https://aur.archlinux.org/packages/?O=0&SeB=nd&outdated=&SB=v&SO=d&PP=100&do_Search=Go&K=",
+  compl:   "https://aur.archlinux.org/rpc?v=5&type=suggest&arg=",
+  favicon: cbDefaultIcon,
 }
 
 completions.au.callback = (response) => {
@@ -65,34 +80,56 @@ completions.aw = {
 completions.aw.callback = (response) => JSON.parse(response.text)[1]
 
 // Arch Linux Forums
-completions.af = {
-  alias:    "af",
-  name:     "archforums",
-  domain:   "bbs.archlinux.org",
-  search:   googleCxPublicURL("af"),
-  compl:    googleCxURL("af"),
-  callback: googleCxCallback,
-}
+completions.af = googleCustomSearch({
+  alias:  "af",
+  name:   "archforums",
+  domain: "bbs.archlinux.org",
+})
 
 // ****** Technical Resources ****** //
+
+// AWS
+// completions.aw = {
+//   alias:  "aw",
+//   name:   "aws",
+//   search: "https://aws.amazon.com/search/?searchQuery=",
+//   compl:  "https://aws.amazon.com/api/dirs/typeahead-suggestions/items?locale=en_US&limit=250#",
+// }
+//
+// completions.aw.callback = (response) => {
+//   console.log({ response })
+//   const res = JSON.parse(response.text)
+//   return res.items.map((s) => {
+//     const { name } = s
+//     return createSuggestionItem(`
+//       <div style="padding:5px;display:grid;grid-template-columns:60px 1fr;grid-gap:15px">
+//         <!-- <img style="width:60px" src="\${icUrl}" alt="\${escape(s.Name)}"> -->
+//         <div>
+//           <div class="title"><strong>${name}</strong> ${s.additionalFields.desc}</div>
+//         </div>
+//       </div>
+//     `, { url: `https://${s.additionalFields.primaryUrl}` })
+//   })
+// }
 
 // AlternativeTo
 completions.at = {
   alias:  "at",
   name:   "alternativeTo",
   search: "https://alternativeto.net/browse/search/?q=",
-  compl:  `https://zidpns2vb0-dsn.algolia.net/1/indexes/fullitems?x-algolia-application-id=ZIDPNS2VB0&x-algolia-api-key=${keys.alternativeTo}&attributesToRetrieve=Name,UrlName,TagLine,Description,Likes,HasIcon,IconId,IconExtension,InternalUrl&query=`,
+  compl:  `https://zidpns2vb0-dsn.algolia.net/1/indexes/fullitems?x-algolia-application-id=ZIDPNS2VB0&x-algolia-api-key=${priv.keys.alternativeTo}&attributesToRetrieve=Name,UrlName,TagLine,Description,Likes,HasIcon,IconId,IconExtension,InternalUrl&query=`,
+  priv:   true,
 }
 
-completions.at.callback = (response) => {
+completions.at.callback = async (response) => {
   const res = JSON.parse(response.text)
   return res.hits.map((s) => {
-    const name = escape(s.Name)
+    const name = escapeHTML(s.Name)
     let title = name
     let prefix = ""
-    if (s._highlightResult) { // eslint-disable-line no-underscore-dangle
-      if (s._highlightResult.Name) { // eslint-disable-line no-underscore-dangle
-        title = s._highlightResult.Name.value // eslint-disable-line no-underscore-dangle
+    if (s._highlightResult) {
+      if (s._highlightResult.Name) {
+        title = s._highlightResult.Name.value
       }
     }
     if (s.Likes) {
@@ -100,9 +137,9 @@ completions.at.callback = (response) => {
     }
     let tagline = ""
     if (s.TagLine) {
-      tagline = escape(s.TagLine)
+      tagline = escapeHTML(s.TagLine)
     }
-    const desc = s.Description ? `<div class="title">${escape(s.Description)}</div>` : ""
+    const desc = s.Description ? `<div class="title">${escapeHTML(s.Description)}</div>` : ""
 
     let icUrl = wpDefaultIcon
     if (s.HasIcon) {
@@ -114,7 +151,7 @@ completions.at.callback = (response) => {
 
     return createSuggestionItem(`
       <div style="padding:5px;display:grid;grid-template-columns:60px 1fr;grid-gap:15px">
-        <img style="width:60px" src="${icUrl}" alt="${escape(s.Name)}">
+        <img style="width:60px" src="${icUrl}" alt="${escapeHTML(s.Name)}">
         <div>
           <div class="title"><strong>${prefix}${title}</strong> ${tagline}</div>
           ${desc}
@@ -125,13 +162,11 @@ completions.at.callback = (response) => {
 }
 
 // Chrome Webstore
-completions.cs = {
-  alias:    "cs",
-  name:     "chromestore",
-  search:   "https://chrome.google.com/webstore/search/",
-  compl:    googleCxURL("cs"),
-  callback: googleCxCallback,
-}
+completions.cs = googleCustomSearch({
+  alias:  "cs",
+  name:   "chromestore",
+  search: "https://chrome.google.com/webstore/search/",
+})
 
 const parseFirefoxAddonsRes = (response) => JSON.parse(response.text).results.map((s) => {
   let { name } = s
@@ -142,7 +177,7 @@ const parseFirefoxAddonsRes = (response) => JSON.parse(response.text).results.ma
       [name] = Object.values(name)
     }
   }
-  name = escape(name)
+  name = escapeHTML(name)
   let prefix = ""
   switch (s.type) {
   case "extension":
@@ -230,16 +265,16 @@ completions.dh = {
 completions.dh.callback = (response) => JSON.parse(response.text).results.map((s) => {
   let meta = ""
   let repo = s.repo_name
-  meta += `[★${escape(s.star_count)}] `
-  meta += `[↓${escape(s.pull_count)}] `
+  meta += `[★${escapeHTML(s.star_count)}] `
+  meta += `[↓${escapeHTML(s.pull_count)}] `
   if (repo.indexOf("/") === -1) {
     repo = `_/${repo}`
   }
   return createSuggestionItem(`
       <div>
-        <div class="title"><strong>${escape(repo)}</strong></div>
+        <div class="title"><strong>${escapeHTML(repo)}</strong></div>
         <div>${meta}</div>
-        <div>${escape(s.short_description)}</div>
+        <div>${escapeHTML(s.short_description)}</div>
       </div>
     `, { url: `https://hub.docker.com/r/${repo}` })
 })
@@ -284,7 +319,7 @@ completions.do.callback = (response) => Object.entries(JSON.parse(response.text)
       symbol = "✘ "
     }
     return createSuggestionItem(
-      `<div><div class="title" style="color:${color}"><strong>${symbol}${escape(domain)}</strong></div></div>`,
+      `<div><div class="title" style="color:${color}"><strong>${symbol}${escapeHTML(domain)}</strong></div></div>`,
       { url: `https://domainr.com/${domain}` },
     )
   })
@@ -369,8 +404,8 @@ const parseDatamuseRes = (res, o = {}) => {
     if ((opts.maxDefs <= -1 || opts.maxDefs > 0) && r.defs && r.defs.length > 0) {
       for (const d of r.defs.slice(0, opts.maxDefs <= -1 ? undefined : opts.maxDefs)) {
         const ds = d.split("\t")
-        const partOfSpeech = `(${escape(ds[0])})`
-        const def = escape(ds[1])
+        const partOfSpeech = `(${escapeHTML(ds[0])})`
+        const def = escapeHTML(ds[1])
         defs.push(`<span><em>${partOfSpeech}</em> ${def}</span>`)
       }
       if (opts.ellipsis && r.defs.length > opts.maxDefs) {
@@ -380,7 +415,7 @@ const parseDatamuseRes = (res, o = {}) => {
     }
     return createSuggestionItem(`
         <div>
-          <div class="title"><strong>${escape(r.word)}</strong></div>
+          <div class="title"><strong>${escapeHTML(r.word)}</strong></div>
           ${defsHtml}
         </div>
     `, { url: `${opts.wordBaseURL}${r.word}` })
@@ -474,7 +509,8 @@ completions.wa = {
   alias:  "wa",
   name:   "wolframalpha",
   search: "http://www.wolframalpha.com/input/?i=",
-  compl:  `http://api.wolframalpha.com/v2/query?appid=${keys.wolframalpha}&format=plaintext&output=json&reinterpret=true&input=%s`,
+  compl:  `http://api.wolframalpha.com/v2/query?appid=${priv.keys.wolframalpha}&format=plaintext&output=json&reinterpret=true&input=%s`,
+  priv:   true,
 }
 
 completions.wa.callback = (response) => {
@@ -483,8 +519,8 @@ completions.wa.callback = (response) => {
   if (res.error) {
     return [createSuggestionItem(`
       <div>
-        <div class="title"><strong>Error</strong> (Code ${escape(res.error.code)})</div>
-        <div class="title">${escape(res.error.msg)}</div>
+        <div class="title"><strong>Error</strong> (Code ${escapeHTML(res.error.code)})</div>
+        <div class="title">${escapeHTML(res.error.msg)}</div>
       </div>`, { url: "https://www.wolframalpha.com/" })]
   }
 
@@ -493,14 +529,14 @@ completions.wa.callback = (response) => {
       return [createSuggestionItem(`
         <div>
           <div class="title"><strong>No Results</strong></div>
-          <div class="title">${escape(res.tips.text)}</div>
+          <div class="title">${escapeHTML(res.tips.text)}</div>
         </div>`, { url: "https://www.wolframalpha.com/" })]
     }
     if (res.didyoumeans) {
       return res.didyoumeans.map((s) => createSuggestionItem(`
         <div>
             <div class="title"><strong>Did you mean...?</strong></div>
-            <div class="title">${escape(s.val)}</div>
+            <div class="title">${escapeHTML(s.val)}</div>
         </div>`, { url: "https://www.wolframalpha.com/" }))
     }
     return [createSuggestionItem(`
@@ -513,7 +549,7 @@ completions.wa.callback = (response) => {
   const results = []
   res.pods.forEach((p) => {
     const result = {
-      title:  escape(p.title),
+      title:  escapeHTML(p.title),
       values: [],
       url:    "http://www.wolframalpha.com/input/?i=",
     }
@@ -523,9 +559,9 @@ completions.wa.callback = (response) => {
         if (!sp.plaintext) return
         let v = ""
         if (sp.title) {
-          v += `<strong>${escape(sp.title)}</strong>: `
+          v += `<strong>${escapeHTML(sp.title)}</strong>: `
         }
-        v += escape(sp.plaintext)
+        v += escapeHTML(sp.plaintext)
         result.values.push(`<div class="title">${v}</div>`)
       })
     }
@@ -573,26 +609,27 @@ completions.co = {
   alias:  "co",
   name:   "crunchbase-orgs",
   search: "https://www.crunchbase.com/textsearch?q=",
-  compl:  `https://api.crunchbase.com/v/3/odm_organizations?user_key=${keys.crunchbase}&query=%s`,
+  compl:  `https://api.crunchbase.com/v/3/odm_organizations?user_key=${priv.keys.crunchbase}&query=%s`,
+  priv:   true,
 }
 
 completions.co.callback = (response) => parseCrunchbase(response, (org) => {
   const r = org.properties
   const p = {
-    name:   escape(r.name),
-    domain: r.domain !== null ? escape(r.domain).replace(/\/$/, "") : null,
-    desc:   escape(r.short_description),
-    role:   escape(r.primary_role),
+    name:   escapeHTML(r.name),
+    domain: r.domain !== null ? escapeHTML(r.domain).replace(/\/$/, "") : null,
+    desc:   escapeHTML(r.short_description),
+    role:   escapeHTML(r.primary_role),
     img:    cbDefaultIcon,
     loc:    "",
     url:    `https://www.crunchbase.com/${r.web_path}`,
   }
 
-  p.loc += (r.city_name !== null) ? escape(r.city_name) : ""
+  p.loc += (r.city_name !== null) ? escapeHTML(r.city_name) : ""
   p.loc += (r.region_name !== null && p.loc !== "") ? ", " : ""
-  p.loc += (r.region_name !== null) ? escape(r.region_name) : ""
+  p.loc += (r.region_name !== null) ? escapeHTML(r.region_name) : ""
   p.loc += (r.country_code !== null && p.loc !== "") ? ", " : ""
-  p.loc += (r.country_code !== null) ? escape(r.country_code) : ""
+  p.loc += (r.country_code !== null) ? escapeHTML(r.country_code) : ""
 
   if (r.profile_image_url !== null) {
     const u = r.profile_image_url
@@ -608,13 +645,14 @@ completions.cp = {
   alias:  "cp",
   name:   "crunchbase-people",
   search: "https://www.crunchbase.com/app/search/?q=",
-  compl:  `https://api.crunchbase.com/v/3/odm_people?user_key=${keys.crunchbase}&query=%s`,
+  compl:  `https://api.crunchbase.com/v/3/odm_people?user_key=${priv.keys.crunchbase}&query=%s`,
+  priv:   true,
 }
 
 completions.cp.callback = (response) => parseCrunchbase(response, (person) => {
   const r = person.properties
   const p = {
-    name: `${escape(r.first_name)} ${escape(r.last_name)}`,
+    name: `${escapeHTML(r.first_name)} ${escapeHTML(r.last_name)}`,
     desc: "",
     img:  cbDefaultIcon,
     role: "",
@@ -622,15 +660,15 @@ completions.cp.callback = (response) => parseCrunchbase(response, (person) => {
     url:  `https://www.crunchbase.com/${r.web_path}`,
   }
 
-  p.desc += (r.title !== null) ? escape(r.title) : ""
+  p.desc += (r.title !== null) ? escapeHTML(r.title) : ""
   p.desc += (r.organization_name !== null && p.desc !== "") ? ", " : ""
-  p.desc += (r.organization_name !== null) ? escape(r.organization_name) : ""
+  p.desc += (r.organization_name !== null) ? escapeHTML(r.organization_name) : ""
 
-  p.loc += (r.city_name !== null) ? escape(r.city_name) : ""
+  p.loc += (r.city_name !== null) ? escapeHTML(r.city_name) : ""
   p.loc += (r.region_name !== null && p.loc !== "") ? ", " : ""
-  p.loc += (r.region_name !== null) ? escape(r.region_name) : ""
+  p.loc += (r.region_name !== null) ? escapeHTML(r.region_name) : ""
   p.loc += (r.country_code !== null && p.loc !== "") ? ", " : ""
-  p.loc += (r.country_code !== null) ? escape(r.country_code) : ""
+  p.loc += (r.country_code !== null) ? escapeHTML(r.country_code) : ""
 
   if (r.profile_image_url !== null) {
     const url = r.profile_image_url
@@ -744,6 +782,42 @@ completions.gs = {
 
 completions.gs.callback = (response) => JSON.parse(response.text).l
 
+// Kagi
+completions.ka = {
+  alias:    "ka",
+  name:     "kagi",
+  search:   "https://kagi.com/search?q=",
+  compl:    "https://kagi.com/autosuggest?q=",
+  callback: (response) => JSON.parse(response.text).map((r) => {
+    const u = new URL("https://kagi.com/search")
+    u.searchParams.append("q", r.t)
+    if (r.goto) {
+      u.href = r.goto
+    }
+
+    const thumbImg = document.createElement("img")
+    thumbImg.style = "width: 32px"
+    thumbImg.src = r.img ? new URL(r.img, "https://kagi.com") : wpDefaultIcon
+
+    const txtNode = document.createElement("div")
+    txtNode.className = "title"
+    txtNode.innerText = r.txt ?? ""
+
+    return createSuggestionItem(
+      `
+      <div style="padding: 5px; display: grid; grid-template-columns: 32px 1fr; grid-gap: 15px">
+        ${thumbImg.outerHTML}
+        <div>
+          <div class="title"><strong>${r.t}</strong></div>
+          ${txtNode.outerHTML}
+        </div>
+      </div>
+    `,
+      { url: u.href },
+    )
+  }),
+}
+
 //  ****** Elixir ****** //
 
 // Hex.pm
@@ -759,21 +833,21 @@ completions.hx.callback = (response) => JSON.parse(response.text).map((s) => {
   let desc = ""
   let liscs = ""
   if (s.downloads && s.downloads.all) {
-    dls = `[↓${escape(s.downloads.all)}] `
+    dls = `[↓${escapeHTML(s.downloads.all)}] `
   }
   if (s.meta) {
     if (s.meta.description) {
-      desc = escape(s.meta.description)
+      desc = escapeHTML(s.meta.description)
     }
     if (s.meta.licenses) {
       s.meta.licenses.forEach((l) => {
-        liscs += `[&copy;${escape(l)}] `
+        liscs += `[&copy;${escapeHTML(l)}] `
       })
     }
   }
   return createSuggestionItem(`
     <div>
-      <div class="title">${escape(s.repository)}/<strong>${escape(s.name)}</strong></div>
+      <div class="title">${escapeHTML(s.repository)}/<strong>${escapeHTML(s.name)}</strong></div>
       <div>${dls}${liscs}</div>
       <div>${desc}</div>
     </div>
@@ -793,16 +867,16 @@ completions.hd.callback = (response) => JSON.parse(response.text).map((s) => {
   let dls = ""
   let desc = ""
   if (s.downloads && s.downloads.all) {
-    dls = `[↓${escape(s.downloads.all)}]`
+    dls = `[↓${escapeHTML(s.downloads.all)}]`
   }
   if (s.meta) {
     if (s.meta.description) {
-      desc = escape(s.meta.description)
+      desc = escapeHTML(s.meta.description)
     }
   }
   return createSuggestionItem(`
       <div>
-        <div class="title">${escape(s.repository)}/<strong>${escape(s.name)}</strong>${dls}</div>
+        <div class="title">${escapeHTML(s.repository)}/<strong>${escapeHTML(s.name)}</strong>${dls}</div>
         <div></div>
         <div>${desc}</div>
       </div>
@@ -811,12 +885,11 @@ completions.hd.callback = (response) => JSON.parse(response.text).map((s) => {
 
 // Exdocs
 // Similar to `hd` but searches inside docs using Google Custom Search
-completions.ex = {
+completions.ex = googleCustomSearch({
   alias:  "ex",
   name:   "exdocs",
   search: "https://hex.pm/packages?sort=downloads&ex&search=",
-  compl:  googleCxURL("ex"),
-}
+})
 
 completions.ex.callback = (response) => JSON.parse(response.text).items.map((s) => {
   let hash = ""
@@ -853,9 +926,9 @@ completions.ex.callback = (response) => JSON.parse(response.text).items.map((s) 
   a2 += closeArgs.length
   const fargs = snippetEnd.slice(a1, a2)
   const fary = fargs.replace(new RegExp(openArgs + closeArgs), "").split(",").length
-  hash = escape(`${fname}/${fary}`)
+  hash = escapeHTML(`${fname}/${fary}`)
 
-  const moduleName = escape(s.title).split(" –")[0]
+  const moduleName = escapeHTML(s.title).split(" –")[0]
 
   let subtitle = ""
   if (hash) {
@@ -875,15 +948,12 @@ completions.ex.callback = (response) => JSON.parse(response.text).items.map((s) 
 
 // ****** Golang ****** //
 
-// Golang Docs (Google CSE)
-completions.gg = {
-  alias:    "gg",
-  name:     "golang",
-  domain:   "golang.org",
-  search:   googleCxPublicURL("gg"),
-  compl:    googleCxURL("gg"),
-  callback: googleCxCallback,
-}
+// Golang Docs
+completions.gg = googleCustomSearch({
+  alias:  "gg",
+  name:   "golang",
+  domain: "golang.org",
+})
 
 // Godoc
 completions.gd = {
@@ -904,50 +974,40 @@ completions.gd.callback = (response) => JSON.parse(response.text).results.map((s
   return createURLItem(prefix + s.path, `https://godoc.org/${s.path}`)
 })
 
-// Gowalker
-completions.gw = {
-  alias:  "gw",
-  name:   "gowalker",
-  search: "https://gowalker.org/search?auto_redirect=true&q=",
-  compl:  "https://gowalker.org/search/json?q=",
-}
-
-completions.gw.callback = (response) => JSON.parse(response.text).results.map((s) => {
-  const title = escape(s.title)
-  const desc = escape(s.description)
-  return createSuggestionItem(`
-    <div>
-      <div class="title"><strong>${title}</strong></div>
-      <div>${desc}</div>
-    </div>
-  `, { url: `https://golang.org/doc/${encodeURIComponent(s.url)}` })
-})
-
 // ****** Haskell ****** //
 
 // Hackage
-completions.ha = {
-  alias:  "ha",
-  name:   "hackage",
-  search: "https://hackage.haskell.org/packages/search?terms=",
-  compl:  "https://hackage.haskell.org/packages/search.json?terms=",
-}
-
-completions.ha.callback = (response) => JSON.parse(response.text)
-  .map((s) => createURLItem(s.name, `https://hackage.haskell.org/package/${s.name}`))
+// TODO: Re-enable
+// completions.ha = {
+//   alias:  "ha",
+//   name:   "hackage",
+//   search: "https://hackage.haskell.org/packages/search?terms=",
+//   compl:  "https://hackage.haskell.org/packages/search.json?terms=",
+// }
+//
+// completions.ha.callback = (response) => JSON.parse(response.text)
+//   .map((s) => createURLItem(s.name, `https://hackage.haskell.org/package/${s.name}`))
 
 // Hoogle
 completions.ho = {
   alias:  "ho",
   name:   "hoogle",
-  search: `https://www.haskell.org/hoogle/?hoogle=${
-    encodeURIComponent("+platform +xmonad +xmonad-contrib ")}`, // This tells Hoogle to include these modules in the search - encodeURIComponent is only used for better readability
-  compl:  `https://www.haskell.org/hoogle/?mode=json&hoogle=${
-    encodeURIComponent("+platform +xmonad +xmonad-contrib ")}`,
+  search: "https://www.haskell.org/hoogle/?hoogle=",
+  compl:  "https://www.haskell.org/hoogle/?mode=json&hoogle=",
 }
 
-completions.ho.callback = (response) => JSON.parse(response.text).results
-  .map((s) => createURLItem(s.self, s.location))
+completions.ho.callback = (response) => JSON.parse(response.text).map((s) => {
+  const pkgInfo = s.package.name && s.module.name
+    ? `<div style="font-size:0.8em; margin-bottom: 0.8em; margin-top: 0.8em">[${s.package.name}] ${s.module.name}</div>`
+    : ""
+  return createSuggestionItem(`
+      <div>
+        <div class="title" style="font-size: 1.1em; font-weight: bold">${s.item}</div>
+        ${pkgInfo}
+        <div style="padding: 0.5em">${s.docs}</div>
+      </div>
+    `, { url: s.url })
+})
 
 // Haskell Wiki
 completions.hw = {
@@ -961,84 +1021,138 @@ completions.hw.callback = (response) => JSON.parse(response.text)[1]
 
 // ****** HTML, CSS, JavaScript, NodeJS, ... ****** //
 
-// jQuery API documentation
-completions.jq = {
-  alias:    "jq",
-  name:     "jquery",
-  domain:   "jquery.com",
-  search:   googleCxPublicURL("jq"),
-  compl:    googleCxURL("jq"),
-  callback: googleCxCallback,
+// caniuse
+completions.ci = {
+  alias:   "ci",
+  name:    "caniuse",
+  search:  "https://caniuse.com/?search=",
+  compl:   "https://caniuse.com/process/query.php?search=",
+  favicon: "https://caniuse.com/img/favicon-128.png",
 }
 
-// NodeJS standard library documentation
-completions.no = {
-  alias:    "no",
-  name:     "node",
-  domain:   "nodejs.org",
-  search:   googleCxPublicURL("no"),
-  compl:    googleCxURL("no"),
-  callback: googleCxCallback,
+completions.ci.getData = async () => {
+  const storageKey = "completions.ci.data"
+  const storedData = await localStorage.get(storageKey)
+  // if (storedData) {
+  //   console.log("data found in localStorage", { storedData })
+  //   return JSON.parse(storedData)
+  // }
+  console.log("data not found in localStorage", { storedData })
+  const data = JSON.parse(await runtimeHttpRequest("https://caniuse.com/data.json"))
+  // console.log({ dataRes })
+  // const data = await dataRes.json()
+  //
+  console.log({ data })
+  localStorage.set(storageKey, JSON.stringify(data))
+  return data
 }
+
+completions.ci.callback = async (response) => {
+  const { featureIds } = JSON.parse(response.text)
+  const allData = await completions.ci.getData()
+  console.log("featureIds", featureIds)
+  console.log("allData", allData)
+  return featureIds.map((featId) => {
+    const feat = allData.data[featId]
+    return feat
+      ? createSuggestionItem(`
+          <div>
+            <div class="title"><strong>${feat.title}</strong></div>
+            <div>${feat.description}</div>
+          </div>
+        `, { url: "https://caniuse.com/?search=" })
+      : null
+  })
+    .filter(Boolean)
+
+  // const [allDataRes, featureDataRes] = await Promise.all([
+  //   completions.ci.getData(),
+  //   fetch(`https://caniuse.com/process/get_feat_data.php?type=support-data&feat=${featureIds.join(",")}`),
+  // ])
+  // const featureData = await featureDataRes.json()
+  // console.log("featureIds", featureIds)
+  // console.log("featureData", featureData)
+  // return featureData.map((feat) =>
+  //   createSuggestionItem(`
+  //     <div>
+  //       <span>${feat.description ?? feat.title ?? ""}</span>
+  //     </div>
+  //   `, { url: "https://caniuse.com/?search=" }))
+}
+
+// jQuery API documentation
+completions.jq = googleCustomSearch({
+  alias:  "jq",
+  name:   "jquery",
+  domain: "jquery.com",
+})
+
+// NodeJS standard library documentation
+completions.no = googleCustomSearch({
+  alias:  "no",
+  name:   "node",
+  domain: "nodejs.org",
+})
 
 // Mozilla Developer Network (MDN)
 completions.md = {
   alias:  "md",
   name:   "mdn",
-  search: `https://developer.mozilla.org/${locale}/search?q=`,
-  compl:  `https://developer.mozilla.org/api/v1/search/${locale}?q=`,
+  search: "https://developer.mozilla.org/search?q=",
+  compl:  "https://developer.mozilla.org/api/v1/search?q=",
 }
 
 completions.md.callback = (response) => {
+  // console.log({response})
   const res = JSON.parse(response.text)
   return res.documents.map((s) =>
     createSuggestionItem(`
       <div>
-        <div class="title"><strong>${s.title}</strong></div>
-        <div style="font-size:0.8em"><em>${s.slug}</em></div>
-        <div>${s.summary}</div>
+        <div class="title"><strong>${escapeHTML(s.title)}</strong></div>
+        <div style="font-size:0.8em"><em>${escapeHTML(s.slug)}</em></div>
+        <div>${escapeHTML(s.summary)}</div>
       </div>
     `, { url: `https://developer.mozilla.org/${s.locale}/docs/${s.slug}` }))
 }
 
 // NPM registry search
 completions.np = {
-  alias:  "np",
-  name:   "npm",
-  search: "https://www.npmjs.com/search?q=",
-  compl:  "https://api.npms.io/v2/search/suggestions?size=20&q=",
+  alias:   "np",
+  name:    "npm",
+  search:  "https://www.npmjs.com/search?q=",
+  compl:   "https://api.npms.io/v2/search/suggestions?size=20&q=",
+  favicon: getDuckduckgoFaviconUrl("https://www.npmjs.com"),
 }
 
 completions.np.callback = (response) => JSON.parse(response.text)
   .map((s) => {
     let flags = ""
     let desc = ""
-    let stars = ""
-    let score = ""
+    let date = ""
     if (s.package.description) {
-      desc = escape(s.package.description)
-    }
-    if (s.score) {
-      if (s.score.final) {
-        score = Math.round(Number(s.score.final) * 5)
-        stars = "★".repeat(score) + "☆".repeat(5 - score)
-      }
+      desc = escapeHTML(s.package.description)
     }
     if (s.flags) {
       Object.keys(s.flags).forEach((f) => {
-        flags += `[<span style='color:#ff4d00'>⚑</span> ${escape(f)}] `
+        flags += `[<span style='color:#ff4d00'>⚑</span> ${escapeHTML(f)}] `
       })
+    }
+    if (s.package.date) {
+      date = prettyDate(new Date(s.package.date))
     }
     return createSuggestionItem(`
       <div>
         <style>
-          .title>em {
+          .title > em {
             font-weight: bold;
           }
         </style>
-        <div class="title">${s.highlight}</div>
         <div>
-          <span style="font-size:2em;line-height:0.5em">${stars}</span>
+          <span class="title">${s.highlight}</span>
+          <span style="font-size: 0.8em">v${s.package.version}</span>
+        </div>
+        <div>
+          <span>${date}</span>
           <span>${flags}</span>
         </div>
         <div>${desc}</div>
@@ -1068,9 +1182,9 @@ completions.hn.callback = (response) => {
     if (s.num_comments) {
       prefix += `[↲${s.num_comments}] `
     }
-    switch (s._tags[0]) { // eslint-disable-line no-underscore-dangle
+    switch (s._tags[0]) {
     case "story":
-      title = s.title // eslint-disable-line prefer-destructuring
+      title = s.title
       break
     case "comment":
       title = s.comment_text
@@ -1113,7 +1227,8 @@ completions.yt = {
   alias:  "yt",
   name:   "youtube",
   search: "https://www.youtube.com/search?q=",
-  compl:  `https://www.googleapis.com/youtube/v3/search?maxResults=20&part=snippet&type=video,channel&key=${keys.google_yt}&safeSearch=none&q=`,
+  compl:  `https://www.googleapis.com/youtube/v3/search?maxResults=20&part=snippet&type=video,channel&key=${priv.keys.google_yt}&safeSearch=none&q=`,
+  priv:   true,
 }
 
 completions.yt.callback = (response) => JSON.parse(response.text).items
@@ -1134,4 +1249,4 @@ completions.yt.callback = (response) => JSON.parse(response.text).items
     }
   }).filter((s) => s !== null)
 
-module.exports = completions
+export default completions
