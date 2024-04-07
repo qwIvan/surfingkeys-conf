@@ -6,8 +6,8 @@ This is my configuration for the [SurfingKeys](https://github.com/brookhong/Surf
 
 It includes:
 
-- [187 key mappings for 27 unique websites](#site-specific-key-mappings) which **automate many common actions**.
-- [Omnibar integration with 56 Search Engines and Knowledge Sources](#omnibar-search-engine-integrations), many of which include **inline images** and **instant answers**.
+- [267 key mappings for 103 unique websites](#site-specific-key-mappings) which **automate many common actions**.
+- [Omnibar integration with 55 Search Engines and Knowledge Sources](#omnibar-search-engine-integrations), many of which include **inline images** and **instant answers**.
 
 ## Table of Contents
 
@@ -37,6 +37,7 @@ It includes:
 <tr><td><code>g.</code></td><td>Go to parent domain</td></tr>
 <tr><td><code>yp</code></td><td>Copy URL path of current page</td></tr>
 <tr><td><code>yI</code></td><td>Copy Image URL</td></tr>
+<tr><td><code>yA</code></td><td>Copy link as Markdown</td></tr>
 <tr><td><code>yO</code></td><td>Copy page URL/Title as Org-mode link</td></tr>
 <tr><td><code>yM</code></td><td>Copy page URL/Title as Markdown link</td></tr>
 <tr><td><code>yT</code></td><td>Duplicate current tab (non-active new tab)</td></tr>
@@ -49,6 +50,7 @@ It includes:
 <tr><td><code>&#x3D;a</code></td><td>Show Archive.org Wayback Machine for page</td></tr>
 <tr><td><code>&#x3D;A</code></td><td>Show Alexa.com info for domain</td></tr>
 <tr><td><code>&#x3D;s</code></td><td>View social discussions for page</td></tr>
+<tr><td><code>&#x3D;S</code></td><td>View summary for page</td></tr>
 <tr><td><code>&#x3D;o</code></td><td>Show outline.com version of page</td></tr>
 <tr><td><code>&#x3D;bw</code></td><td>Show BuiltWith report for page</td></tr>
 <tr><td><code>&#x3D;wa</code></td><td>Show Wappalyzer report for page</td></tr>
@@ -58,7 +60,6 @@ It includes:
 <tr><td><code>\cgh</code></td><td>Open clipboard string as GitHub path (e.g. 'torvalds/linux')</td></tr>
 <tr><td><code>F</code></td><td>Open a link in non-active new tab</td></tr>
 <tr><td><code>oh</code></td><td>Open URL from history</td></tr>
-<tr><td><code>\A</code></td><td>Open AWS service</td></tr>
 <tr><th colspan="2"><a href="//algolia.com"><img src="./assets/favicons/algolia.com.ico" width="16px"> algolia.com</a></th></tr><tr><td><strong>Mapping</strong></td><td><strong>Description</strong></td></tr>
 <tr><td><code>&lt;Space&gt;a</code></td><td>Open search result</td></tr>
 <tr><th colspan="2"><a href="//amazon.com"><img src="./assets/favicons/amazon.com.ico" width="16px"> amazon.com</a></th></tr><tr><td><strong>Mapping</strong></td><td><strong>Description</strong></td></tr>
@@ -77,6 +78,12 @@ It includes:
 <tr><td><code>&lt;Space&gt;b</code></td><td>Add project to collection</td></tr>
 <tr><td><code>&lt;Space&gt;a</code></td><td>View project</td></tr>
 <tr><td><code>&lt;Space&gt;A</code></td><td>View project (non-active new tab)</td></tr>
+<tr><th colspan="2"><a href="//bsky.app"><img src="./assets/favicons/bsky.app.ico" width="16px"> bsky.app</a></th></tr><tr><td><strong>Mapping</strong></td><td><strong>Description</strong></td></tr>
+<tr><td><code>&lt;Space&gt;d</code></td><td>Copy user DID</td></tr>
+<tr><td><code>&lt;Space&gt;p</code></td><td>Copy user post ID</td></tr>
+<tr><th colspan="2"><a href="//chat.openai.com"><img src="./assets/favicons/chat.openai.com.ico" width="16px"> chat.openai.com</a></th></tr><tr><td><strong>Mapping</strong></td><td><strong>Description</strong></td></tr>
+<tr><td><code>&lt;Space&gt;n</code></td><td>New chat</td></tr>
+<tr><td><code>&lt;Space&gt;a</code></td><td>Open chat</td></tr>
 <tr><th colspan="2"><a href="//craigslist.org"><img src="./assets/favicons/craigslist.org.ico" width="16px"> craigslist.org</a></th></tr><tr><td><strong>Mapping</strong></td><td><strong>Description</strong></td></tr>
 <tr><td><code>&lt;Space&gt;a</code></td><td>View listing</td></tr>
 <tr><th colspan="2"><a href="//devdocs.io"><img src="./assets/favicons/devdocs.io.ico" width="16px"> devdocs.io</a></th></tr><tr><td><strong>Mapping</strong></td><td><strong>Description</strong></td></tr>
@@ -124,7 +131,8 @@ It includes:
 <tr><td><code>&lt;Space&gt;yy</code></td><td>Copy Project Path</td></tr>
 <tr><td><code>&lt;Space&gt;Y</code></td><td>Copy Project Path (including domain)</td></tr>
 <tr><td><code>&lt;Space&gt;l</code></td><td>Toggle repo language stats</td></tr>
-<tr><td><code>&lt;Space&gt;D</code></td><td>View GoDoc for Project</td></tr>
+<tr><td><code>&lt;Space&gt;D</code></td><td>Open in github.dev (new tab)</td></tr>
+<tr><td><code>&lt;Space&gt;dd</code></td><td>Open in github.dev</td></tr>
 <tr><td><code>&lt;Space&gt;G</code></td><td>View on SourceGraph</td></tr>
 <tr><td><code>&lt;Space&gt;r</code></td><td>View live raw version of file</td></tr>
 <tr><td><code>&lt;Space&gt;yr</code></td><td>Copy raw link to file</td></tr>
@@ -228,7 +236,7 @@ It includes:
 <tr><td><code>&lt;Space&gt;a</code></td><td>Open search result</td></tr>
 <tr><td><code>&lt;Space&gt;A</code></td><td>Open search result (new tab)</td></tr>
 <tr><td><code>&lt;Space&gt;d</code></td><td>Open search in DuckDuckGo</td></tr>
-<tr><th colspan="2"><a href="//yelp.com"><img src="./assets/favicons/yelp.com.ico" width="16px"> yelp.com</a></th></tr><tr><td><strong>Mapping</strong></td><td><strong>Description</strong></td></tr>
+<tr><th colspan="2"><a href="//www.yelp.com"><img src="./assets/favicons/www.yelp.com.ico" width="16px"> www.yelp.com</a></th></tr><tr><td><strong>Mapping</strong></td><td><strong>Description</strong></td></tr>
 <tr><td><code>&lt;Space&gt;fs</code></td><td>Fakespot</td></tr>
 <tr><th colspan="2"><a href="//youtube.com"><img src="./assets/favicons/youtube.com.ico" width="16px"> youtube.com</a></th></tr><tr><td><strong>Mapping</strong></td><td><strong>Description</strong></td></tr>
 <tr><td><code>A</code></td><td>Open video</td></tr>
@@ -240,6 +248,8 @@ It includes:
 
 </tbody>
 </table>
+
+There are also mappings to open academic papers from [70+ publishers](https://github.com/b0o/surfingkeys-conf/blob/4263985b12b2acd126a70988de4db8a39e118144/src/keys.js#L1240) using a [DOI handler](https://github.com/b0o/surfingkeys-conf/blob/4263985b12b2acd126a70988de4db8a39e118144/src/conf.priv.example.js#L38-L41).
 
 ### Omnibar Search Engine Integrations
 
@@ -327,20 +337,6 @@ For example, to open the Wikipedia omnibar integration, type `awp`.
     <td></td>
   </tr>
   <tr>
-    <td><a href="https://www.crunchbase.com"><img src="./assets/favicons/www.crunchbase.com.ico" width="16px"> </a></td>
-    <td><code>co</code></td>
-    <td>crunchbase-orgs <a title="requires private API key" href="#optional-private-api-key-configuration">&#8727;</a></td>
-    <td><a href="https://www.crunchbase.com">www.crunchbase.com</a></td>
-    <td></td>
-  </tr>
-  <tr>
-    <td><a href="https://www.crunchbase.com"><img src="./assets/favicons/www.crunchbase.com.ico" width="16px"> </a></td>
-    <td><code>cp</code></td>
-    <td>crunchbase-people <a title="requires private API key" href="#optional-private-api-key-configuration">&#8727;</a></td>
-    <td><a href="https://www.crunchbase.com">www.crunchbase.com</a></td>
-    <td></td>
-  </tr>
-  <tr>
     <td><a href="https://chrome.google.com"><img src="./assets/favicons/chrome.google.com.ico" width="16px"> </a></td>
     <td><code>cs</code></td>
     <td>chromestore <a title="requires private API key" href="#optional-private-api-key-configuration">&#8727;</a></td>
@@ -411,13 +407,6 @@ For example, to open the Wikipedia omnibar integration, type `awp`.
     <td></td>
   </tr>
   <tr>
-    <td><a href="https://hex.pm"><img src="./assets/favicons/hex.pm.ico" width="16px"> </a></td>
-    <td><code>ex</code></td>
-    <td>exdocs <a title="requires private API key" href="#optional-private-api-key-configuration">&#8727;</a></td>
-    <td><a href="https://hex.pm">hex.pm</a></td>
-    <td></td>
-  </tr>
-  <tr>
     <td><a href="https://addons.mozilla.org"><img src="./assets/favicons/addons.mozilla.org.ico" width="16px"> </a></td>
     <td><code>fa</code></td>
     <td>firefox-addons</td>
@@ -443,13 +432,6 @@ For example, to open the Wikipedia omnibar integration, type `awp`.
     <td><code>gI</code></td>
     <td>google-reverse-image</td>
     <td><a href="https://www.google.com">www.google.com</a></td>
-    <td></td>
-  </tr>
-  <tr>
-    <td><a href="https://godoc.org"><img src="./assets/favicons/godoc.org.ico" width="16px"> </a></td>
-    <td><code>gd</code></td>
-    <td>godoc</td>
-    <td><a href="https://godoc.org">godoc.org</a></td>
     <td></td>
   </tr>
   <tr>
@@ -492,6 +474,13 @@ For example, to open the Wikipedia omnibar integration, type `awp`.
     <td><code>hd</code></td>
     <td>hexdocs</td>
     <td><a href="https://hex.pm">hex.pm</a></td>
+    <td></td>
+  </tr>
+  <tr>
+    <td><a href="https://huggingface.co"><img src="./assets/favicons/huggingface.co.ico" width="16px"> </a></td>
+    <td><code>hf</code></td>
+    <td>huggingface</td>
+    <td><a href="https://huggingface.co">huggingface.co</a></td>
     <td></td>
   </tr>
   <tr>
@@ -569,7 +558,7 @@ For example, to open the Wikipedia omnibar integration, type `awp`.
     <td><code>re</code></td>
     <td>reddit</td>
     <td><a href="https://www.reddit.com">www.reddit.com</a></td>
-    <td></td>
+    <td><a href="#reddit">:framed_picture:</a><a href="#reddit-2">:framed_picture:</a></td>
   </tr>
   <tr>
     <td><a href="https://stackexchange.com"><img src="./assets/favicons/stackexchange.com.ico" width="16px"> </a></td>
@@ -593,11 +582,25 @@ For example, to open the Wikipedia omnibar integration, type `awp`.
     <td><a href="#thesaurus">:framed_picture:</a></td>
   </tr>
   <tr>
+    <td><a href="https://www.typescriptlang.org"><img src="./assets/favicons/www.typescriptlang.org.ico" width="16px"> </a></td>
+    <td><code>ts</code></td>
+    <td>typescript</td>
+    <td><a href="https://www.typescriptlang.org">www.typescriptlang.org</a></td>
+    <td></td>
+  </tr>
+  <tr>
     <td><a href="https://twitter.com"><img src="./assets/favicons/twitter.com.ico" width="16px"> </a></td>
     <td><code>tw</code></td>
     <td>twitter</td>
     <td><a href="https://twitter.com">twitter.com</a></td>
     <td></td>
+  </tr>
+  <tr>
+    <td><a href="https://unicode-table.com"><img src="./assets/favicons/unicode-table.com.ico" width="16px"> </a></td>
+    <td><code>un</code></td>
+    <td>unicode <a title="requires local web server" href="#running-the-local-web-server">&#8224;</a></td>
+    <td><a href="https://unicode-table.com">unicode-table.com</a></td>
+    <td><a href="#unicode">:framed_picture:</a></td>
   </tr>
   <tr>
     <td><a href="https://vim.fandom.com"><img src="./assets/favicons/vim.fandom.com.ico" width="16px"> </a></td>
@@ -618,7 +621,7 @@ For example, to open the Wikipedia omnibar integration, type `awp`.
     <td><code>wp</code></td>
     <td>wikipedia</td>
     <td><a href="https://en.wikipedia.org">en.wikipedia.org</a></td>
-    <td></td>
+    <td><a href="#wikipedia">:framed_picture:</a></td>
   </tr>
   <tr>
     <td><a href="https://simple.wikipedia.org"><img src="./assets/favicons/simple.wikipedia.org.ico" width="16px"> </a></td>
@@ -652,6 +655,8 @@ For example, to open the Wikipedia omnibar integration, type `awp`.
 </table>
 
 <a href="#optional-private-api-key-configuration">&#8727; requires private API key</a>
+
+<a href="#running-the-local-web-server">&#8224; requires local webserver</a>
 
 ## Installation
 
@@ -707,9 +712,9 @@ _Coming soon!_
 
       _Note: you must specify the full, absolute path; the tilde `~` or environment variables like `$HOME` won't work_:
 
-      - __Linux__: `file:///home/{USERNAME}/.config/surfingkeys.js` (replace `{USERNAME}` with your username)
-      - __macOS__: `file:///Users/{USERNAME}/.config/surfingkeys.js` (replace `{USERNAME}` with your username)
-      - __Windows__: `file://%Homedrive%%Homepath%/surfingkeys.js` (This is a guess, please correct me if I'm wrong)
+      - **Linux**: `file:///home/{USERNAME}/.config/surfingkeys.js` (replace `{USERNAME}` with your username)
+      - **macOS**: `file:///Users/{USERNAME}/.config/surfingkeys.js` (replace `{USERNAME}` with your username)
+      - **Windows**: `file://%Homedrive%%Homepath%/surfingkeys.js` (This is a guess, please correct me if I'm wrong)
 
     - **IV.** Repeat these steps after you make any changes to your configuration files. Your new configuration will be automatically loaded by SurfingKeys.
 
@@ -719,11 +724,7 @@ _Coming soon!_
 
     - **I.** Run the configuration file server:
 
-      ```shell
-      $ gulp serve-simple
-      ```
-
-      Alternatively, you can use the `gulp serve` task, which automatically rebuilds the configuration file whenever a source file is modified.
+      See [Running the Local Web Server](#running-the-local-web-server)
 
     - **II.** Open the SurfingKeys configuration page:
 
@@ -741,10 +742,6 @@ _Coming soon!_
 
     - **V.** Repeat the `npm run gulp build` command from step 4 above after you make any changes to your configuration files.
       Your new configuration will be automatically loaded by the web server and SurfingKeys will pick it up the next time you load a webpage.
-
-    - **Note:** This method starts a local web server on `localhost:9919` which serves your built configuration file. Depending on your firewall configuration,
-      other devices on your network may be able to read your configuration file, including any private API keys or other secrets you have configured in `conf.priv.js`.
-      Proceed with caution.
 
     </details></blockquote>
     </details>
@@ -783,6 +780,27 @@ $ cp ./src/conf.priv.example.js ./src/conf.priv.js
 $ vim ./src/conf.priv.js
 ```
 
+### Running the Local Web Server
+
+This project provides a local web server which:
+
+- Serves your configuration file via HTTP
+- Serves additional API routes for certain search engines, like the `unicode` search engine.
+
+To run the local web server, follow steps 1-3 in the [installation instructions above](#procedure), then run:
+
+```shell
+$ gulp serve-simple
+```
+
+Alternatively, you can use the `gulp serve` task, which also automatically rebuilds the configuration file whenever a source file is modified.
+
+If you wish to use the local web server, you will likely want it to start automatically with your PC.
+If you run Linux with systemd, an [example user service](./extra/surfingkeys-conf.service) is provided for this purpose.
+You will need to modify it to contain the proper path to your `surfingkeys-conf` repo.
+
+**Note:** This starts a local web server on `localhost:9919` which serves your built configuration file and additional API endpoints. Depending on your firewall configuration, other devices on your network may be able to read your configuration file, including any private API keys or other secrets you have configured in `conf.priv.js`. Proceed with caution.
+
 ## Screenshots
 
 ##### AUR
@@ -815,14 +833,26 @@ $ vim ./src/conf.priv.js
 ##### mdn
 ![mdn screenshot](./assets/screenshots/md.png)
 
+##### reddit
+![reddit screenshot](./assets/screenshots/re-01.png)
+
+##### reddit 2
+![reddit screenshot](./assets/screenshots/re-02.png)
+
 ##### thesaurus
 ![thesaurus screenshot](./assets/screenshots/th.png)
+
+##### unicode
+![unicode screenshot](./assets/screenshots/un.png)
 
 ##### wolframalpha
 ![wolframalpha screenshot](./assets/screenshots/wa-01.png)
 
 ##### wolframalpha 2
 ![wolframalpha screenshot](./assets/screenshots/wa-02.png)
+
+##### wikipedia
+![wikipedia screenshot](./assets/screenshots/wp.png)
 
 ##### youtube
 ![youtube screenshot](./assets/screenshots/yt.png)
@@ -831,4 +861,4 @@ $ vim ./src/conf.priv.js
 
 ## Copyright
 
-<p><h4>Author</h4>&copy; 2017-2022 <a href="https://github.com/b0o">Maddison Hellstrom</a></p><p><h4>License</h4>Released under the <a href="./LICENSE">MIT License</a></p>
+<p><h4>Author</h4>&copy; 2017-2023 <a href="https://github.com/b0o">Maddison Hellstrom</a></p><p><h4>License</h4>Released under the <a href="./LICENSE">MIT License</a></p>
