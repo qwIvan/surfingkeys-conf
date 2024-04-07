@@ -37,7 +37,7 @@ const unmaps = {
     "af",
     ";s",
     "yp",
-    "p",
+    // "p",
     "<Ctrl-j>",
     "<Ctrl-h>",
   ],
