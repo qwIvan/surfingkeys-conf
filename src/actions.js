@@ -988,7 +988,8 @@ actions.wp.viewWikiRank = () => {
 }
 
 actions.wp.markdownSummary = () =>
-  `> ${[
+  `> [!wiki]
+> ${[
     (acc) => [...acc.querySelectorAll("sup")].map((e) => e.remove()),
     (acc) =>
       [...acc.querySelectorAll("b")].forEach((e) => {
@@ -1006,8 +1007,8 @@ actions.wp.markdownSummary = () =>
         .cloneNode(true)
     )
     .innerText.trim()}
-
-— ${actions.getMarkdownLink()}`
+>
+> — ${actions.getMarkdownLink()}`
 
 // Nest Thermostat Controller
 // --------------------------
@@ -1232,30 +1233,5 @@ actions.doi.getLink = (provider) => {
   }
   return priv.doi_handler(doi)
 }
-
-// ChatGPT
-actions.cg = {}
-actions.cg.getNewChatLink = () =>
-  [...document.querySelectorAll("a")].find((a) => a.innerText === "New chat")
-
-actions.cg.newChat = async () => {
-  const clickNewChat = async (newChatLink) => {
-    newChatLink.click()
-    const gpt4LinkQuery = () => [...document.querySelectorAll('li[class*="group/toggle"]')].find((li) => li.innerText === "GPT-4")
-    return await util.until(gpt4LinkQuery)
-  }
-
-  const a = actions.cg.getNewChatLink()
-  if (a) {
-    const gpt4Link = await clickNewChat(a)
-    gpt4Link.querySelector("button>div").click()
-    return
-  }
-
-  location.assign("https://chat.openai.com/?model=gpt-4")
-}
-
-actions.cg.getChatLinks = () =>
-  actions.cg.getNewChatLink().parentElement.nextSibling.nextSibling.querySelectorAll("a")
 
 export default actions

@@ -6,7 +6,7 @@ import util from "./util.js"
 
 const { categories } = help
 
-const { Clipboard, Front } = api
+const { Clipboard, Front, Hints } = api
 
 // Remove undesired default mappings
 const unmaps = {
@@ -98,12 +98,6 @@ maps.global = [
     callback: actions.vimEditURL,
   },
   {
-    alias: "gi",
-    category: categories.pageNav,
-    description: "Edit current URL with vim editor",
-    callback: actions.vimEditURL,
-  },
-  {
     alias: "gI",
     category: categories.pageNav,
     description: "View image in new tab",
@@ -179,11 +173,6 @@ maps.global = [
     category: categories.settings,
     description: "Edit Settings",
     callback: actions.editSettings,
-  },
-  {
-    alias: "gS",
-    category: categories.chromeURLs,
-    description: "Open Chrome settings",
   },
   {
     alias: "=W",
@@ -474,7 +463,7 @@ maps["youtube.com"] = [
     description: "Toggle fullscreen",
     callback: () =>
       actions.dispatchMouseEvents(
-        document.querySelector("#movie_player.ytp-fullscreen-button"),
+        document.querySelector("#movie_player .ytp-fullscreen-button"),
         "mousedown",
         "click"
       ),
@@ -1301,16 +1290,21 @@ maps["ikea.com"] = [
   },
 ]
 
-maps["chat.openai.com"] = [
+maps["chatgpt.com"] = [
   {
-    alias: "n",
-    description: "New chat",
-    callback: () => actions.cg.newChat(),
+    alias: "i",
+    leader: "",
+    description: "Focus input",
+    callback: () => setTimeout(() => Hints.dispatchMouseClick(document.querySelector("#prompt-textarea")), 0),
   },
+]
+
+maps["claude.ai"] = [
   {
-    alias: "a",
-    description: "Open chat",
-    callback: () => util.createHints([...actions.cg.getChatLinks()]),
+    alias: "i",
+    leader: "",
+    description: "Focus input",
+    callback: () => setTimeout(() => Hints.dispatchMouseClick(document.querySelector(".ProseMirror[contenteditable=true]")), 0),
   },
 ]
 
