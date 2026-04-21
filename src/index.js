@@ -101,7 +101,7 @@ const main = async () => {
     )
   }
 
-  if (conf.logLevels) {
+  if (conf.logLevels && chrome && chrome.storage) {
     await chrome.storage.local.set({
       logLevels: conf.logLevels,
     })

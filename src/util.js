@@ -69,7 +69,7 @@ const localStorageFns = () => {
   if (typeof browser !== "undefined") {
     return [browser.storage.local.get, browser.storage.local.set]
   }
-  if (typeof chrome !== "undefined") {
+  if (typeof chrome !== "undefined" && chrome.storage) {
     return [chrome.storage.local.get, chrome.storage.local.set].map((fn) =>
       util.promisify(fn.bind(chrome.storage.local))
     )
