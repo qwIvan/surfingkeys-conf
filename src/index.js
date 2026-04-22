@@ -7,6 +7,7 @@ const {
   mapkey,
   map,
   unmap,
+  iunmap,
   Clipboard,
   Front,
   removeSearchAlias,
@@ -94,6 +95,9 @@ const registerSearchEngines = (searchEngines, searchleader) =>
 
 const main = async () => {
   window.surfingKeys = api
+
+  iunmap("<Ctrl-a>")
+
   if (conf.settings) {
     Object.assign(
       settings,
